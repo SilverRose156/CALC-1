@@ -41,23 +41,23 @@ Window::Window ()
 	wxButton* button0 = new wxButton(this, ID_ZERO, "0", wxPoint(0, 400), wxSize(100, 100));
 
 	//Unary Operator
-	wxButton* buttonSin = new wxButton(this, ID_SIN, "Sin", wxPoint(0, 0), wxSize(100, 100));
-	wxButton* buttonCos = new wxButton(this, ID_COS, "Cos", wxPoint(100, 100), wxSize(100, 100));
-	wxButton* buttonTan = new wxButton(this, ID_TAN, "Tan", wxPoint(200, 200), wxSize(100, 100));
+	wxButton* buttonSin = new wxButton(this, ID_SIN, "Sin", wxPoint(0, 500), wxSize(100, 100));
+	wxButton* buttonCos = new wxButton(this, ID_COS, "Cos", wxPoint(100, 500), wxSize(100, 100));
+	wxButton* buttonTan = new wxButton(this, ID_TAN, "Tan", wxPoint(200, 500), wxSize(100, 100));
 
 	//Binary Operator
-	wxButton* buttonPlus = new wxButton(this, ID_PLUS, "+", wxPoint(120, 10), wxSize(100, 100));
-	wxButton* buttonMinus = new wxButton(this, ID_MINUS, "-", wxPoint(120, 10), wxSize(100, 100));
-	wxButton* buttonMultiply = new wxButton(this, ID_MULTIPLY, "*", wxPoint(120, 10), wxSize(100, 100));
-	wxButton* buttonDivide = new wxButton(this, ID_DIVIDE, "/", wxPoint(120, 10), wxSize(100, 100));
-	wxButton* buttonModulo = new wxButton(this, ID_MODULO, "%", wxPoint(120, 10), wxSize(100, 100));
+	wxButton* buttonPlus = new wxButton(this, ID_PLUS, "+", wxPoint(300, 0), wxSize(100, 100));
+	wxButton* buttonMinus = new wxButton(this, ID_MINUS, "-", wxPoint(300, 100), wxSize(100, 100));
+	wxButton* buttonMultiply = new wxButton(this, ID_MULTIPLY, "*", wxPoint(300, 200), wxSize(100, 100));
+	wxButton* buttonDivide = new wxButton(this, ID_DIVIDE, "/", wxPoint(300, 300), wxSize(100, 100));
+	wxButton* buttonModulo = new wxButton(this, ID_MODULO, "%", wxPoint(300, 400), wxSize(100, 100));
 
 	//Others
-	wxButton* buttonEqual = new wxButton(this, ID_EQUAL, "=", wxPoint(300, 0), wxSize(100, 100));
-	wxButton* buttonClear = new wxButton(this, ID_CLEAR, "Clear", wxPoint(300, 100), wxSize(100, 100));
-	wxButton* buttonBack = new wxButton(this, ID_BACKSPACE, "Back", wxPoint(300, 200), wxSize(100, 100));
-	wxButton* buttonDecimal = new wxButton(this, ID_DECIMAL, ".", wxPoint(300, 300), wxSize(100, 100));
-	wxButton* buttonNegative = new wxButton(this, ID_NEGATIVE, "Negative", wxPoint(300, 400), wxSize(100, 100));
+	wxButton* buttonEqual = new wxButton(this, ID_EQUAL, "=", wxPoint(100, 400), wxSize(200, 100));
+	wxButton* buttonClear = new wxButton(this, ID_CLEAR, "Clear", wxPoint(400, 100), wxSize(100, 100));
+	wxButton* buttonBack = new wxButton(this, ID_BACKSPACE, "Back", wxPoint(400, 200), wxSize(100, 100));
+	wxButton* buttonDecimal = new wxButton(this, ID_DECIMAL, ".", wxPoint(400, 300), wxSize(100, 100));
+	wxButton* buttonNegative = new wxButton(this, ID_NEGATIVE, "Negative", wxPoint(400, 400), wxSize(100, 100));
 
 	//Text Control
 	textBox = new wxTextCtrl(this, wxID_ANY, "", wxPoint(0, 0), wxSize(300, 100));
@@ -66,65 +66,94 @@ Window::Window ()
 
 void Window::OnButtonClicked(wxCommandEvent& event)
 {
-	wxString label = event.GetString();
 	wxString currentText = textBox->GetValue();
-	
-	//number
-		if (label.IsNumber()) {
-			wxString currentText = textBox->GetValue();
-			currentText += label;
-			textBox->SetValue(currentText);
+	int buttonId = event.GetId();
+	//button 1
+	//if (textBox->GetValue() == "0") {
+	//	textBox->SetValue(button1->GetLabel());
+	//}
+	//else {
+	//	textBox->AppendText(button1->GetLabel());
+	//}
+	//button 2
+	//if (textBox->GetValue() == "0") {
+	//	textBox->SetValue(button2->GetLabel());
+	//}
+	//else {
+	//	textBox->AppendText(button2->GetLabel());
+	//}
+	if (currentText == "0") {
+		switch (buttonId) {
+		case ID_ONE:
+			textBox->SetValue("1");
+			break;
+		case ID_TWO:
+			textBox->SetValue("2");
+			break;
+		case ID_THREE:
+			textBox->SetValue("3");
+			break;
+		case ID_FOUR:
+			textBox->SetValue("4");
+			break;
+		case ID_FIVE:
+			textBox->SetValue("5");
+			break;
+		case ID_SIX:
+			textBox->SetValue("6");
+			break;
+		case ID_SEVEN:
+			textBox->SetValue("7");
+			break;
+		case ID_EIGHT:
+			textBox->SetValue("8");
+			break;
+		case ID_NINE:
+			textBox->SetValue("9");
+			break;
+		case ID_ZERO:
+			textBox->SetValue("0");
+			break;
+		default:
+			break;
 		}
-		//clear
-		else if (label == "Clear") {
-			textBox->Clear();
+	}
+	else {
+		switch (buttonId) {
+		case ID_ONE:
+			textBox->AppendText("1");
+			break;
+		case ID_TWO:
+			textBox->AppendText("2");
+			break;
+		case ID_THREE:
+			textBox->AppendText("3");
+			break;
+		case ID_FOUR:
+			textBox->AppendText("4");
+			break;
+		case ID_FIVE:
+			textBox->AppendText("5");
+			break;
+		case ID_SIX:
+			textBox->AppendText("6");
+			break;
+		case ID_SEVEN:
+			textBox->AppendText("7");
+			break;
+		case ID_EIGHT:
+			textBox->AppendText("8");
+			break;
+		case ID_NINE:
+			textBox->AppendText("9");
+			break;
+		case ID_ZERO:
+			textBox->AppendText("0");
+			break;
+		default:
+			break;
 		}
 
-		//back
-		else if (label == "Back") {
-			if (!currentText.IsEmpty()) {
-				currentText.Remove(currentText.Len() - 1);
-				textBox->SetValue(currentText);
-			}
-		}
-
-		//equal
-		else if (label == "=") {
-			if (currentText.IsEmpty()) {
-				throw std::invalid_argument("Empty");
-				return;
-			}
-			double result = 0;
-			bool validExpression = true;
-
-
-			//Add
-			if (currentText.Contains("+")) {
-				wxStringTokenizer tokenizer(currentText, "+");//strtok()
-				wxString left = tokenizer.GetNextToken();
-				wxString right = tokenizer.GetNextToken();
-				result = wxAtof(left) + wxAtof(right);
-			}
-			else if (currentText.Contains("-")) {
-				wxStringTokenizer tokenizer(currentText, "-");//strtok()
-				wxString left = tokenizer.GetNextToken();
-				wxString right = tokenizer.GetNextToken();
-				result = wxAtof(left) - wxAtof(right);
-			}
-			else if (currentText.Contains("*")) {
-				wxStringTokenizer tokenizer(currentText, "*");//strtok()
-				wxString left = tokenizer.GetNextToken();
-				wxString right = tokenizer.GetNextToken();
-				result = wxAtof(left) * wxAtof(right);
-			}
-			else if (currentText.Contains("/")) {
-				wxStringTokenizer tokenizer(currentText, "/");//strtok()
-				wxString left = tokenizer.GetNextToken();
-				wxString right = tokenizer.GetNextToken();
-				//result = wxAtof(left) + wxAtof(right); what do I do here instead
-			}
-
-		}
+	}
 }
 
- 
