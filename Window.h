@@ -7,12 +7,12 @@ class Window : public wxFrame
 private:
 	//wxButton* button1; // = nullptr;
 	//wxButton* button2; // = nullptr;
-	wxTextCtrl* textBox; // = nullptr;
+	//wxTextCtrl* textBox; // = nullptr;
 	
-	void OnButtonClicked(wxCommandEvent& event);
+	//void OnButtonClicked(wxCommandEvent& event);
 
 public:
-	Window(const wxString& title);
+	Window();
 	wxDECLARE_EVENT_TABLE();
 };
 

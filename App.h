@@ -5,7 +5,7 @@ class Window;
 
 class App : public wxApp
 {
-	//Window* window = nullptr;
+	Window* window = nullptr;
 public:
 	virtual bool OnInit();
 };

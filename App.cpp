@@ -2,7 +2,7 @@
 #include "Window.h"
 
 
-// the starting point 
+// the starting point first to run
 wxIMPLEMENT_APP(App);
 
 
