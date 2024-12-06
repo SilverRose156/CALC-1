@@ -1,4 +1,5 @@
 #include "Window.h"
+#include <wx/tokenzr.h>
 wxBEGIN_EVENT_TABLE(Window, wxFrame)
 EVT_BUTTON(ID_ONE, Window::OnButtonClicked)
 EVT_BUTTON(ID_TWO, Window::OnButtonClicked)
@@ -95,6 +96,15 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 			}
 			double result = 0;
 			bool validExpression = true;
+
+
+			//Add
+			if (currentText.Contains("+")) {
+				wxStringTokenizer tokenizer(currentText, "+");//strtok()
+				wxString left = tokenizer.GetNextToken();
+				wxString right = tokenizer.GetNextToken();
+				result = wxAtof(left) + wxAtof(right);
+			}
 		}
 }
 
