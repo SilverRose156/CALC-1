@@ -26,16 +26,19 @@ public:
 		ID_EIGHT = 8,
 		ID_NINE = 9,
 		ID_ZERO = 0,
+
 		ID_PLUS,
 		ID_MINUS,
 		ID_MULTIPLY,
 		ID_DIVIDE,
 		ID_MODULO,
 		ID_DECIMAL,
+
 		ID_NEGATIVE,
 		ID_EQUAL,
 		ID_CLEAR,
 		ID_BACKSPACE,
+
 		ID_SIN,
 		ID_COS,
 		ID_TAN,

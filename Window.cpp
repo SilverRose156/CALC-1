@@ -11,22 +11,26 @@ EVT_BUTTON(ID_SEVEN, Window::OnButtonClicked)
 EVT_BUTTON(ID_EIGHT, Window::OnButtonClicked)
 EVT_BUTTON(ID_NINE, Window::OnButtonClicked)
 EVT_BUTTON(ID_ZERO, Window::OnButtonClicked)
+
 EVT_BUTTON(ID_PLUS, Window::OnButtonClicked)
 EVT_BUTTON(ID_MINUS, Window::OnButtonClicked)
 EVT_BUTTON(ID_MULTIPLY, Window::OnButtonClicked)
 EVT_BUTTON(ID_DIVIDE, Window::OnButtonClicked)
 EVT_BUTTON(ID_MODULO, Window::OnButtonClicked)
 EVT_BUTTON(ID_DECIMAL, Window::OnButtonClicked)
+
 EVT_BUTTON(ID_NEGATIVE, Window::OnButtonClicked)
 EVT_BUTTON(ID_EQUAL, Window::OnButtonClicked)
 EVT_BUTTON(ID_CLEAR, Window::OnButtonClicked)
 EVT_BUTTON(ID_BACKSPACE, Window::OnButtonClicked)
+
 EVT_BUTTON(ID_SIN, Window::OnButtonClicked)
 EVT_BUTTON(ID_COS, Window::OnButtonClicked)
 EVT_BUTTON(ID_TAN, Window::OnButtonClicked)
+
 wxEND_EVENT_TABLE()
 Window::Window ()
-	: wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(200, 200), wxSize(600, 600))
+	: wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(200, 200), wxSize(500, 600))
 {
 	//numbers
 	button1 = new wxButton(this, ID_ONE, "1", wxPoint(0, 100), wxSize (100,100));
@@ -114,6 +118,9 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 		case ID_ZERO:
 			textBox->SetValue("0");
 			break;
+		//case ID_DECIMAL:
+		//	textBox->SetValue("."); 
+		//	break;
 		default:
 			break;
 		}
@@ -149,6 +156,16 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 			break;
 		case ID_ZERO:
 			textBox->AppendText("0");
+			break;
+			//sin cos tan
+		case ID_SIN:   
+			textBox->SetValue("sin(" + currentText + ")"); 
+			break;
+		case ID_COS:   
+			textBox->SetValue("cos(" + currentText + ")"); 
+			break;
+		case ID_TAN:   
+			textBox->SetValue("tan(" + currentText + ")"); 
 			break;
 		default:
 			break;
