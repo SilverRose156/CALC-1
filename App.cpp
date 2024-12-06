@@ -10,7 +10,7 @@ bool App::OnInit() {
 	//Window = new Window();
 	//window->Show();
 	//return true;
-	Window* window = new Window("Calculator");
+	Window* window = new Window();
 	window->Show(true);
 	return true;
 }

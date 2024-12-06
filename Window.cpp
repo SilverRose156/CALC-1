@@ -6,16 +6,16 @@ Window::Window ()
 	: wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(200, 200), wxSize(600, 600))
 {
 	//numbers
-	wxButton* button1 = new wxButton(this, wxID_ANY, "1", wxPoint(10, 10), wxSize (100,100));
+	wxButton* button1 = new wxButton(this, wxID_ANY, "1", wxPoint(100, 10), wxSize (100,100));
 	wxButton* button2 = new wxButton(this, wxID_ANY, "2", wxPoint(120, 10), wxSize(100,100));
-	wxButton* button3 = new wxButton(this, wxID_ANY, "3", wxPoint(120, 10), wxSize(100, 100));
-	wxButton* button4 = new wxButton(this, wxID_ANY, "4", wxPoint(120, 10), wxSize(100, 100));
-	wxButton* button5 = new wxButton(this, wxID_ANY, "5", wxPoint(120, 10), wxSize(100, 100));
-	wxButton* button6 = new wxButton(this, wxID_ANY, "6", wxPoint(120, 10), wxSize(100, 100));
-	wxButton* button7 = new wxButton(this, wxID_ANY, "7", wxPoint(120, 10), wxSize(100, 100));
-	wxButton* button8 = new wxButton(this, wxID_ANY, "8", wxPoint(120, 10), wxSize(100, 100));
-	wxButton* button9 = new wxButton(this, wxID_ANY, "9", wxPoint(120, 10), wxSize(100, 100));
-	wxButton* button0 = new wxButton(this, wxID_ANY, "0", wxPoint(120, 10), wxSize(100, 100));
+	wxButton* button3 = new wxButton(this, wxID_ANY, "3", wxPoint(130, 10), wxSize(100, 100));
+	wxButton* button4 = new wxButton(this, wxID_ANY, "4", wxPoint(140, 10), wxSize(100, 100));
+	wxButton* button5 = new wxButton(this, wxID_ANY, "5", wxPoint(150, 10), wxSize(100, 100));
+	wxButton* button6 = new wxButton(this, wxID_ANY, "6", wxPoint(160, 10), wxSize(100, 100));
+	wxButton* button7 = new wxButton(this, wxID_ANY, "7", wxPoint(170, 10), wxSize(100, 100));
+	wxButton* button8 = new wxButton(this, wxID_ANY, "8", wxPoint(180, 10), wxSize(100, 100));
+	wxButton* button9 = new wxButton(this, wxID_ANY, "9", wxPoint(190, 10), wxSize(100, 100));
+	wxButton* button0 = new wxButton(this, wxID_ANY, "0", wxPoint(200, 10), wxSize(100, 100));
 
 	//Unary Operator
 	wxButton* buttonSin = new wxButton(this, wxID_ANY, "Sin", wxPoint(120, 10), wxSize(100, 100));
@@ -37,7 +37,7 @@ Window::Window ()
 	wxButton* buttonNegative = new wxButton(this, wxID_ANY, "Neg", wxPoint(120, 10), wxSize(100, 100));
 
 	//Text Control
-	wxTextCtrl* textBox = new wxTextCtrl(this, wxID_ANY, "", wxPoint(10, 120), wxSize(100, 100));
+	wxTextCtrl* textBox = new wxTextCtrl(this, wxID_ANY, "", wxPoint(10, 120), wxSize(230, 25));
 	
 }
 
