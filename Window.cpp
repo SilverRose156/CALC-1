@@ -105,6 +105,25 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 				wxString right = tokenizer.GetNextToken();
 				result = wxAtof(left) + wxAtof(right);
 			}
+			else if (currentText.Contains("-")) {
+				wxStringTokenizer tokenizer(currentText, "-");//strtok()
+				wxString left = tokenizer.GetNextToken();
+				wxString right = tokenizer.GetNextToken();
+				result = wxAtof(left) - wxAtof(right);
+			}
+			else if (currentText.Contains("*")) {
+				wxStringTokenizer tokenizer(currentText, "*");//strtok()
+				wxString left = tokenizer.GetNextToken();
+				wxString right = tokenizer.GetNextToken();
+				result = wxAtof(left) * wxAtof(right);
+			}
+			else if (currentText.Contains("/")) {
+				wxStringTokenizer tokenizer(currentText, "/");//strtok()
+				wxString left = tokenizer.GetNextToken();
+				wxString right = tokenizer.GetNextToken();
+				//result = wxAtof(left) + wxAtof(right); what do I do here instead
+			}
+
 		}
 }
 
