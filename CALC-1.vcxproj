@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\wxWidgets\include\wx\osx\button.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

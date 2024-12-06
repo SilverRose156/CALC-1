@@ -5,11 +5,13 @@
 class Window : public wxFrame
 {
 private:
-	wxButton* button1 = nullptr;
-	wxButton* button2 = nullptr;
-	wxTextCtrl* textBox = nullptr;
+	wxButton* button1; // = nullptr;
+	wxButton* button2; // = nullptr;
+	wxTextCtrl* textBox; // = nullptr;
+
+	void OnButtonClicked(wxCommandEvent& event);
 
 public:
-	Window();
+	Window(const wxString& title, const wxPoint& pos, const wxSize& size);
 };
 

@@ -7,3 +7,5 @@ Window::Window() : wxFrame(nullptr, wxID_ANY, "calculator", wxPoint(200, 200), w
 	textBox = new wxTextCtrl(this, wxID_ANY, "", wxPoint(10, 120), wxSize(100, 100));
 
 }
+
+
