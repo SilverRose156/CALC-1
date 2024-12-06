@@ -127,36 +127,36 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 	}
 	else {
 		switch (buttonId) {
-		case ID_ONE:
-			textBox->AppendText("1");
-			break;
-		case ID_TWO:
-			textBox->AppendText("2");
-			break;
-		case ID_THREE:
-			textBox->AppendText("3");
-			break;
-		case ID_FOUR:
-			textBox->AppendText("4");
-			break;
-		case ID_FIVE:
-			textBox->AppendText("5");
-			break;
-		case ID_SIX:
-			textBox->AppendText("6");
-			break;
-		case ID_SEVEN:
-			textBox->AppendText("7");
-			break;
-		case ID_EIGHT:
-			textBox->AppendText("8");
-			break;
-		case ID_NINE:
-			textBox->AppendText("9");
-			break;
-		case ID_ZERO:
-			textBox->AppendText("0");
-			break;
+		//case ID_ONE:
+		//	textBox->AppendText("1");
+		//	break;
+		//case ID_TWO:
+		//	textBox->AppendText("2");
+		//	break;
+		//case ID_THREE:
+		//	textBox->AppendText("3");
+		//	break;
+		//case ID_FOUR:
+		//	textBox->AppendText("4");
+		//	break;
+		//case ID_FIVE:
+		//	textBox->AppendText("5");
+		//	break;
+		//case ID_SIX:
+		//	textBox->AppendText("6");
+		//	break;
+		//case ID_SEVEN:
+		//	textBox->AppendText("7");
+		//	break;
+		//case ID_EIGHT:
+		//	textBox->AppendText("8");
+		//	break;
+		//case ID_NINE:
+		//	textBox->AppendText("9");
+		//	break;
+		//case ID_ZERO:
+		//	textBox->AppendText("0");
+		//	break;
 			//sin cos tan
 		case ID_SIN:   
 			textBox->SetValue("sin(" + currentText + ")"); 
@@ -166,6 +166,25 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 			break;
 		case ID_TAN:   
 			textBox->SetValue("tan(" + currentText + ")"); 
+			break;
+			//+-*/.%
+		case ID_PLUS:    
+			textBox->AppendText("+"); 
+			break;
+		case ID_MINUS:   
+			textBox->AppendText("-"); 
+			break;
+		case ID_MULTIPLY:
+			textBox->AppendText("*"); 
+			break;
+		case ID_DIVIDE:  
+			textBox->AppendText("/"); 
+			break;
+		case ID_MODULO:  
+			textBox->AppendText("%"); 
+			break;
+		case ID_DECIMAL:  
+			textBox->AppendText("%"); 
 			break;
 		default:
 			break;
