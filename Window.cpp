@@ -1,5 +1,6 @@
 #include "Window.h"
 #include <wx/tokenzr.h>
+#include <string>
 wxBEGIN_EVENT_TABLE(Window, wxFrame)
 EVT_BUTTON(ID_ONE, Window::OnButtonClicked)
 EVT_BUTTON(ID_TWO, Window::OnButtonClicked)
@@ -208,8 +209,10 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 		case ID_NEGATIVE:
 			textBox->SetValue("-" + currentText);
 			break;
-			//equal
-
+			//equal needs a seperate equation
+		case ID_EQUAL:
+			
+			break;
 
 			//default
 		default:
@@ -220,6 +223,6 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 	}
 }
 
-		
+		//seperate equation with tokenizer which is in fact needed 
 
 
