@@ -158,6 +158,8 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 		case ID_ZERO:
 			textBox->AppendText("0");
 			break;
+
+
 			//sin cos tan
 		case ID_SIN:
 			textBox->SetValue("sin(" + currentText + ")");
@@ -168,6 +170,8 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 		case ID_TAN:
 			textBox->SetValue("tan(" + currentText + ")");
 			break;
+
+
 			//+-*/.%
 		case ID_PLUS:
 			textBox->AppendText("+");
@@ -192,6 +196,7 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 		case ID_CLEAR:
 			textBox->Clear();
 			break;
+			//backspace
 		case ID_BACKSPACE:
 			if (!currentText.IsEmpty()) {
 				currentText = currentText.Left(currentText.Length() - 1);
@@ -199,6 +204,14 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 				textBox->SetValue(currentText);
 			}
 			break;
+			//negative
+		case ID_NEGATIVE:
+			textBox->SetValue("-" + currentText);
+			break;
+			//equal
+
+
+			//default
 		default:
 			break;
 			}
