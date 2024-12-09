@@ -2,6 +2,7 @@
 #include <wx/tokenzr.h>
 #include <string>
 #include <sstream>
+#include <cmath> // big math stuff for sin cos and tan
 wxBEGIN_EVENT_TABLE(Window, wxFrame)
 EVT_BUTTON(ID_ONE, Window::OnButtonClicked)
 EVT_BUTTON(ID_TWO, Window::OnButtonClicked)
@@ -74,20 +75,7 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 {
 	wxString currentText = textBox->GetValue();
 	int buttonId = event.GetId();
-	//button 1
-	//if (textBox->GetValue() == "0") {
-	//	textBox->SetValue(button1->GetLabel());
-	//}
-	//else {
-	//	textBox->AppendText(button1->GetLabel());
-	//}
-	//button 2
-	//if (textBox->GetValue() == "0") {
-	//	textBox->SetValue(button2->GetLabel());
-	//}
-	//else {
-	//	textBox->AppendText(button2->GetLabel());
-	//}
+	
 	if (currentText == "0") {
 		switch (buttonId) {
 		case ID_ONE:
@@ -206,9 +194,11 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 				textBox->SetValue(currentText);
 			}
 			break;
-			//negative
+			//negative is at the front of the equation
 		case ID_NEGATIVE:
-			textBox->SetValue("-" + currentText);
+			
+				textBox->SetValue("-" + currentText);
+			
 			break;
 			//equal needs a seperate equation
 		case ID_EQUAL:
@@ -232,70 +222,10 @@ void Window::CalculateResult(const wxString& expression) {
 		textBox->SetValue("Error");
 		return;
 	}
-
-	//this is for the calculations 
-	wxStringTokenizer tokenizer(expression, " +-*/()%");
-	double result = 0;
-	wxString token;
-	char CurrentOperation = '+';
-	while (tokenizer.HasMoreTokens()) {
-		token = tokenizer.GetNextToken();
+		//this is for the calculations 
+		wxStringTokenizer tokenizer(expression, " +-*/%");
+		double result = 0;
 		double number = 0;
-
-
-		if (token.StartsWith("sin")) {
-
-			number = sin(number);
-		}
-		else if
-			(token.StartsWith("cos")) {
-			number = sin(number);
-		}
-		else if
-			(token.StartsWith("tan")) {
-			number = sin(number);
-		}
-		else {
-			//seperate equation to make work
-			number = ParseNumber(token);
-		}
-		switch (CurrentOperation) {
-		case '+': result += number; break;
-		case '-': result -= number; break;
-		case '*': result *= number; break;
-		case '/':
-			if (number == 0) {
-				textBox->SetValue("error Divide 0");
-				return;
-			}
-			result /= number;
-			break;
-			//modulo is different 
-		case '%':
-			if (number == 0) {
-				//textBox->SetValue("error mod 0");
-				//return;
-				result = fmod(result, number);
-				break;
-		default:
-			break;
-			}
-
-		}
-		//result plus decimal 
-		textBox->SetValue(wxString::Format("%.2f", result));
-	}
-}
-
-double Window::ParseNumber(const wxString& token)
-{
-	std::string str = std::string(token.mb_str());
-	std::istringstream stream(str);
-	double number;
-	stream >> number;
-	return number;
-
-	//return 0.0;
-}
-
-
+		wxString token;
+		char CurrentOperation = '+';
+		
