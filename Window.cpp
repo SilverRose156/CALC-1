@@ -1,6 +1,7 @@
 #include "Window.h"
 #include <wx/tokenzr.h>
 #include <string>
+#include <sstream>
 wxBEGIN_EVENT_TABLE(Window, wxFrame)
 EVT_BUTTON(ID_ONE, Window::OnButtonClicked)
 EVT_BUTTON(ID_TWO, Window::OnButtonClicked)
@@ -17,7 +18,7 @@ EVT_BUTTON(ID_PLUS, Window::OnButtonClicked)
 EVT_BUTTON(ID_MINUS, Window::OnButtonClicked)
 EVT_BUTTON(ID_MULTIPLY, Window::OnButtonClicked)
 EVT_BUTTON(ID_DIVIDE, Window::OnButtonClicked)
-EVT_BUTTON(ID_MODULO, Window::OnButtonClicked)
+EVT_BUTTON(ID_MODULO, Window::OnButtonClicked) //% this is modulo I have the button for this
 EVT_BUTTON(ID_DECIMAL, Window::OnButtonClicked)
 
 EVT_BUTTON(ID_NEGATIVE, Window::OnButtonClicked)
@@ -119,9 +120,9 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 		case ID_ZERO:
 			textBox->SetValue("0");
 			break;
-			//case ID_DECIMAL:
-			//	textBox->SetValue("."); 
-			//	break;
+			case ID_DECIMAL:
+				textBox->SetValue("."); // you have to have this to allow it to work right?
+				break;
 
 		default:
 			break;
@@ -211,7 +212,7 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 			break;
 			//equal needs a seperate equation
 		case ID_EQUAL:
-			
+			CalculateResult(currentText);
 			break;
 
 			//default
@@ -224,5 +225,77 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 }
 
 		//seperate equation with tokenizer which is in fact needed 
+//use ToDOuble as it works better than the other
+void Window::CalculateResult(const wxString& expression) {
+	//Empty
+	if (expression.IsEmpty()) {
+		textBox->SetValue("Error");
+		return;
+	}
+
+	//this is for the calculations 
+	wxStringTokenizer tokenizer(expression, " +-*/()%");
+	double result = 0;
+	wxString token;
+	char CurrentOperation = '+';
+	while (tokenizer.HasMoreTokens()) {
+		token = tokenizer.GetNextToken();
+		double number = 0;
+
+
+		if (token.StartsWith("sin")) {
+
+			number = sin(number);
+		}
+		else if
+			(token.StartsWith("cos")) {
+			number = sin(number);
+		}
+		else if
+			(token.StartsWith("tan")) {
+			number = sin(number);
+		}
+		else {
+			//seperate equation to make work
+			number = ParseNumber(token);
+		}
+		switch (CurrentOperation) {
+		case '+': result += number; break;
+		case '-': result -= number; break;
+		case '*': result *= number; break;
+		case '/':
+			if (number == 0) {
+				textBox->SetValue("error Divide 0");
+				return;
+			}
+			result /= number;
+			break;
+			//modulo is different 
+		case '%':
+			if (number == 0) {
+				//textBox->SetValue("error mod 0");
+				//return;
+				result = fmod(result, number);
+				break;
+		default:
+			break;
+			}
+
+		}
+		//result plus decimal 
+		textBox->SetValue(wxString::Format("%.2f", result));
+	}
+}
+
+double Window::ParseNumber(const wxString& token)
+{
+	std::string str = std::string(token.mb_str());
+	std::istringstream stream(str);
+	double number;
+	stream >> number;
+	return number;
+
+	//return 0.0;
+}
 
 

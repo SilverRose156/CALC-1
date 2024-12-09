@@ -46,6 +46,8 @@ public:
 	wxButton* button1 = nullptr;
 	wxButton* button2 = nullptr;
 	void OnButtonClicked(wxCommandEvent& event);
+	void CalculateResult(const wxString& expression);
+	double ParseNumber(const wxString& token);
 	wxDECLARE_EVENT_TABLE();
 };
 
