@@ -177,6 +177,8 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 			break;
 		case ID_MODULO:
 			textBox->AppendText("%");
+			
+			break;
 			break;
 		case ID_DECIMAL:
 			if (!currentText.Contains(".")) {
@@ -225,76 +227,64 @@ void Window::CalculateResult(const wxString& expression) {
 		//this is for the calculations 
 		wxStringTokenizer tokenizer(expression, " +-*/%");
 		double result = 0;
-		double number = 0;
 		wxString token;
-		char CurrentOperation = '+';
-		//maybe this being the default is the problem
+		char CurrentOperation = '+';//maybe this being the default is the problem
 		// when i switch it to something else only that works
 
 
 
 
-		//if (tokenizer.HasMoreTokens()) {
-		//	token = tokenizer.GetNextToken();
-		//	result = ParseNumber(token);
-		//}
+		if (tokenizer.HasMoreTokens()) {
+			token = tokenizer.GetNextToken();
+			result = ParseNumber(token);
+		}
 		while (tokenizer.HasMoreTokens()) {
 			token = tokenizer.GetNextToken();
 			double number = 0;
 
 
 
-		//if (token == "+" || token == "-" || token == "*" || token == "/" || token == "%") {
-			//if (token == "+") {
-			//	CurrentOperation = '+'; 
-			//}
-			//else if (token == "-") {
-			//	CurrentOperation = '-'; 
-			//}
-			//else if (token == "*") {
-			//	CurrentOperation = '*'; 
-			//}
-			//else if (token == "/") {
-			//	CurrentOperation = '/'; 
-			//}
-			//else if (token == "%") {
-			//	CurrentOperation = '%'; 
-			//}
-			//else {
-			//	number = ParseNumber(token);
-			//}
+
+			if (token == "+") {
+				CurrentOperation = '+'; 
+			}
+			else if (token == "-") {
+				CurrentOperation = '-'; 
+			}
+			else if (token == "*") {
+				CurrentOperation = '*'; 
+			}
+			else if (token == "/") {
+				CurrentOperation = '/'; 
+			}
+			else if (token == "%") {
+				CurrentOperation = '%'; 
+			}
 			
-			//while (tokenizer.HasMoreTokens()) {
-			//	token = tokenizer.GetNextToken();
-			//	double number = 0;
-
-				//double number = ParseNumber(token);
-			//if (token.StartsWith("sin")) {
-				//number = sin(number);
-			//	number = sin(ParseNumber(token.Mid(3)));
-			//}
-			//else if
-			//	(token.StartsWith("cos")) {
-				//number = cos(number);
-			//	number = cos(ParseNumber(token.Mid(3)));
-			//}
-			//else if
-			//	(token.StartsWith("tan")) {
-				//number = tan(number);
-			//	number = tan(ParseNumber(token.Mid(3)));
-			//}
-			//else {
+			
+			///unary
+			else if (token.StartsWith("sin")) {
+				number = ParseNumber(token.Mid(3));
+				number = sin(number);
+				//number = sin(ParseNumber(token.Mid(3)));
+			}
+			else if
+				(token.StartsWith("cos")) {
+				number = ParseNumber(token.Mid(3));
+				number = cos(number);
+				//number = cos(ParseNumber(token.Mid(3)));
+			}
+			else if
+				(token.StartsWith("tan")) {
+				number = ParseNumber(token.Mid(3));
+				number = tan(number);
+			}
+			else {
 				//seperate equation to make work
-			//	number = ParseNumber(token);
-			//}
+				number = ParseNumber(token);
+			}
 
-			if (token == "+"
-					|| token == "-"
-					|| token == "*"
-					|| token == "/"
-					|| token == "%") {
-					CurrentOperation = token[0];
-				}
+
 			switch (CurrentOperation) {
 			case '+':
 				result += number;
@@ -338,6 +328,7 @@ double Window::ParseNumber(const wxString& token)
 	stream >> number;
 	return number;
 }
+
 //extra code
 
 //supposed to switch which is used

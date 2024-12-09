@@ -47,6 +47,7 @@ public:
 	wxButton* button2 = nullptr;
 	void OnButtonClicked(wxCommandEvent& event);
 	void CalculateResult(const wxString& expression);
+	wxString GetOperatorSymbol(int buttonId);
 	double ParseNumber(const wxString& token);
 	wxDECLARE_EVENT_TABLE();
 };
