@@ -228,4 +228,147 @@ void Window::CalculateResult(const wxString& expression) {
 		double number = 0;
 		wxString token;
 		char CurrentOperation = '+';
-		
+		//maybe this being the default is the problem
+		// when i switch it to something else only that works
+
+
+
+
+		//if (tokenizer.HasMoreTokens()) {
+		//	token = tokenizer.GetNextToken();
+		//	result = ParseNumber(token);
+		//}
+		while (tokenizer.HasMoreTokens()) {
+			token = tokenizer.GetNextToken();
+			double number = 0;
+
+
+
+		//if (token == "+" || token == "-" || token == "*" || token == "/" || token == "%") {
+			//if (token == "+") {
+			//	CurrentOperation = '+'; 
+			//}
+			//else if (token == "-") {
+			//	CurrentOperation = '-'; 
+			//}
+			//else if (token == "*") {
+			//	CurrentOperation = '*'; 
+			//}
+			//else if (token == "/") {
+			//	CurrentOperation = '/'; 
+			//}
+			//else if (token == "%") {
+			//	CurrentOperation = '%'; 
+			//}
+			//else {
+			//	number = ParseNumber(token);
+			//}
+			
+			//while (tokenizer.HasMoreTokens()) {
+			//	token = tokenizer.GetNextToken();
+			//	double number = 0;
+
+				//double number = ParseNumber(token);
+			//if (token.StartsWith("sin")) {
+				//number = sin(number);
+			//	number = sin(ParseNumber(token.Mid(3)));
+			//}
+			//else if
+			//	(token.StartsWith("cos")) {
+				//number = cos(number);
+			//	number = cos(ParseNumber(token.Mid(3)));
+			//}
+			//else if
+			//	(token.StartsWith("tan")) {
+				//number = tan(number);
+			//	number = tan(ParseNumber(token.Mid(3)));
+			//}
+			//else {
+				//seperate equation to make work
+			//	number = ParseNumber(token);
+			//}
+
+			if (token == "+"
+					|| token == "-"
+					|| token == "*"
+					|| token == "/"
+					|| token == "%") {
+					CurrentOperation = token[0];
+				}
+			switch (CurrentOperation) {
+			case '+':
+				result += number;
+				break;
+			case '-':
+				result -= number;
+				break;
+			case '*':
+				result *= number;
+				break;
+			case '/':
+				if (number == 0) {
+					textBox->SetValue("error divide");
+					return;
+				}
+				result /= number;
+				break;
+			case '%':
+				if (number == 0) {
+					textBox->SetValue("error mod");
+					return;
+				}
+				result = fmod(result, number);
+				break;
+			default:
+				break;
+			}
+
+
+		}
+		//result plus decimal 
+		textBox->SetValue(wxString::Format("%.2f", result));//maybe can switch to needing the decimal 
+
+}
+
+double Window::ParseNumber(const wxString& token)
+{
+	std::string str = std::string(token.mb_str());
+	std::istringstream stream(str);
+	double number;
+	stream >> number;
+	return number;
+}
+//extra code
+
+//supposed to switch which is used
+			//if (token == "+"
+			//	|| token == "-"
+			//	|| token == "*"
+			//	|| token == "/"
+			//	|| token == "%") {
+			//	CurrentOperation = token[0];
+			//}
+
+//fail check here
+	//if (stream.fail()) {
+	//	textBox->SetValue("not a good number");
+	//	return 0.0;
+
+	//}
+	//return 0.0;
+
+
+//button 1
+	//if (textBox->GetValue() == "0") {
+	//	textBox->SetValue(button1->GetLabel());
+	//}
+	//else {
+	//	textBox->AppendText(button1->GetLabel());
+	//}
+	//button 2
+	//if (textBox->GetValue() == "0") {
+	//	textBox->SetValue(button2->GetLabel());
+	//}
+	//else {
+	//	textBox->AppendText(button2->GetLabel());
+	//}
