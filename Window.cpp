@@ -164,25 +164,67 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 
 			//+-*/.%
 		case ID_PLUS:
-			textBox->AppendText("+");
+			//textBox->AppendText("+");
+			//Operand1 = wxAtoi(currentText);
+			//Operators = 1;  
+			//textBox->AppendText("+");
+			//Operand1 = 0.0;
+			//currentText.ToDouble(&Operand1);  
+			//Operators = 1;  
+			//textBox->AppendText("+");
+			fast = textBox->GetValue();
+			Operand1 = wxAtof(fast);
+			Operators = 1;
+			textBox->SetValue(" ");
 			break;
 		case ID_MINUS:
-			textBox->AppendText("-");
+			//textBox->AppendText("-");
+			//Operand1 = wxAtof(currentText);
+			fast = textBox->GetValue();
+			Operand1 = wxAtof(fast);
+			Operators = -1;
+			textBox->SetValue(" ");
+			//Operand1 = wxAtoi(currentText);  
+			//Operators = -1;  
+			//textBox->AppendText("-");
+			
+			
 			break;
 		case ID_MULTIPLY:
-			textBox->AppendText("*");
+			//textBox->AppendText("*");
+			//Operand1 = wxAtoi(currentText); 
+			//Operators = 2;  
+			//textBox->AppendText("*");
+			fast = textBox->GetValue();
+			Operand1 = wxAtof(fast);
+			Operators = 2;
+			textBox->SetValue(" ");
 			break;
 		case ID_DIVIDE:
-			textBox->AppendText("/");
+			//textBox->AppendText("/");
+			//Operand1 = wxAtoi(currentText);  
+			//Operators = 3;  
+			//textBox->AppendText("/");
+			fast = textBox->GetValue();
+			Operand1 = wxAtof(fast);
+			Operators = 3;
+			textBox->SetValue(" ");
 			break;
 		case ID_MODULO:
-			textBox->AppendText("%");
-			
+			//textBox->AppendText("%");
+			//Operand1 = wxAtoi(currentText);  
+			//Operators = 4;  
+			//textBox->AppendText("%");
+			fast = textBox->GetValue();
+			Operand1 = wxAtof(fast);
+			Operators = 4;
+			textBox->SetValue(" ");
 			break;
 			break;
 		case ID_DECIMAL:
 			if (!currentText.Contains(".")) {
 				textBox->AppendText(".");
+			}
 				break;
 				//Calculation and special things 
 		case ID_CLEAR:
@@ -194,172 +236,74 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 				currentText = currentText.Left(currentText.Length() - 1);
 				//textBox->Remove(currentText.Length() - 1, 1);
 				textBox->SetValue(currentText);
-			}
+			
 			break;
 			//negative is at the front of the equation
 		case ID_NEGATIVE:
-			
-				textBox->SetValue("-" + currentText);
-			
+
+			textBox->SetValue("-" + currentText);
+
 			break;
 			//equal needs a seperate equation
 		case ID_EQUAL:
-			CalculateResult(currentText);
-			break;
-
-			//default
-		default:
-			break;
+			currentText.ToDouble(&Operand2);
+			double result = 0.0;
+			if (currentText.StartsWith("sin")) {
+				//result = std::sin(Operand2);
+				wxString angleText = currentText.SubString(4, currentText.Length() - 2); // Inside the parentheses
+				double angle = wxAtof(angleText); 
+				angle = wxDegToRad(angle); 
+				result = std::sin(angle);
+				textBox->SetValue(wxString::Format("%.2f", result));
 			}
-
-		}
-	}
-}
-
-		//seperate equation with tokenizer which is in fact needed 
-//use ToDOuble as it works better than the other
-void Window::CalculateResult(const wxString& expression) {
-	//Empty
-	if (expression.IsEmpty()) {
-		textBox->SetValue("Error");
-		return;
-	}
-		//this is for the calculations 
-		wxStringTokenizer tokenizer(expression, " +-*/%");
-		double result = 0;
-		wxString token;
-		char CurrentOperation = '+';//maybe this being the default is the problem
-		// when i switch it to something else only that works
-
-
-
-
-		if (tokenizer.HasMoreTokens()) {
-			token = tokenizer.GetNextToken();
-			result = ParseNumber(token);
-		}
-		while (tokenizer.HasMoreTokens()) {
-			token = tokenizer.GetNextToken();
-			double number = 0;
-
-
-
-
-			if (token == "+") {
-				CurrentOperation = '+'; 
+			else if (currentText.StartsWith("cos")) {
+				//result = std::cos(Operand2);
+				wxString angleText = currentText.SubString(4, currentText.Length() - 2); // Inside the parentheses
+				double angle = wxAtof(angleText);
+				angle = wxDegToRad(angle);
+				result = std::cos(angle);
+				textBox->SetValue(wxString::Format("%.2f", result));
 			}
-			else if (token == "-") {
-				CurrentOperation = '-'; 
-			}
-			else if (token == "*") {
-				CurrentOperation = '*'; 
-			}
-			else if (token == "/") {
-				CurrentOperation = '/'; 
-			}
-			else if (token == "%") {
-				CurrentOperation = '%'; 
-			}
-			
-			
-			///unary
-			else if (token.StartsWith("sin")) {
-				number = ParseNumber(token.Mid(3));
-				number = sin(number);
-				//number = sin(ParseNumber(token.Mid(3)));
-			}
-			else if
-				(token.StartsWith("cos")) {
-				number = ParseNumber(token.Mid(3));
-				number = cos(number);
-				//number = cos(ParseNumber(token.Mid(3)));
-			}
-			else if
-				(token.StartsWith("tan")) {
-				number = ParseNumber(token.Mid(3));
-				number = tan(number);
+			else if (currentText.StartsWith("tan")) {
+				//result = std::tan(Operand2);
+				wxString angleText = currentText.SubString(4, currentText.Length() - 2); // Inside the parentheses
+				double angle = wxAtof(angleText);
+				angle = wxDegToRad(angle);
+				result = std::tan(angle);
+				textBox->SetValue(wxString::Format("%.2f", result));
 			}
 			else {
-				//seperate equation to make work
-				number = ParseNumber(token);
-			}
+				switch (Operators) {
+				case 1:  // Add
+					result = Operand1 + Operand2;
+					break;
+				case -1: // Subtract
+					result = Operand1 - Operand2;
+					break;
+				case 2:  // Multiply
+					result = Operand1 * Operand2;
+					break;
+				case 3:  // Divide
+					if (Operand2 != 0) {
+						result = Operand1 / Operand2;
+					}
+					else {
+						textBox->SetValue("Error");
+						return;
+					}
+					break;
+				case 4:  // Mod
+					result = fmod(Operand1, Operand2);
+					break;
+				default:
+					break;
 
-
-			switch (CurrentOperation) {
-			case '+':
-				result += number;
-				break;
-			case '-':
-				result -= number;
-				break;
-			case '*':
-				result *= number;
-				break;
-			case '/':
-				if (number == 0) {
-					textBox->SetValue("error divide");
-					return;
 				}
-				result /= number;
-				break;
-			case '%':
-				if (number == 0) {
-					textBox->SetValue("error mod");
-					return;
-				}
-				result = fmod(result, number);
-				break;
-			default:
+				textBox->SetValue(wxString::Format("%.2f", result));
 				break;
 			}
-
-
+			}
 		}
-		//result plus decimal 
-		textBox->SetValue(wxString::Format("%.2f", result));//maybe can switch to needing the decimal 
-
+	}
 }
 
-double Window::ParseNumber(const wxString& token)
-{
-	std::string str = std::string(token.mb_str());
-	std::istringstream stream(str);
-	double number;
-	stream >> number;
-	return number;
-}
-
-//extra code
-
-//supposed to switch which is used
-			//if (token == "+"
-			//	|| token == "-"
-			//	|| token == "*"
-			//	|| token == "/"
-			//	|| token == "%") {
-			//	CurrentOperation = token[0];
-			//}
-
-//fail check here
-	//if (stream.fail()) {
-	//	textBox->SetValue("not a good number");
-	//	return 0.0;
-
-	//}
-	//return 0.0;
-
-
-//button 1
-	//if (textBox->GetValue() == "0") {
-	//	textBox->SetValue(button1->GetLabel());
-	//}
-	//else {
-	//	textBox->AppendText(button1->GetLabel());
-	//}
-	//button 2
-	//if (textBox->GetValue() == "0") {
-	//	textBox->SetValue(button2->GetLabel());
-	//}
-	//else {
-	//	textBox->AppendText(button2->GetLabel());
-	//}
