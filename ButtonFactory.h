@@ -2,12 +2,12 @@
 #include "wx/wx.h"
 class ButtonFactory
 {
-	static wxButton* CreateGenericButton;
-
-	static wxButton* CreateNumberButton;
-	static wxButton* CreateOperatorButton;
-	static wxButton* CreateUrnaryButton;
-	static wxButton* CreateOtherButton;
+public:
+	//Basic
+	static wxButton* CreateButton();
+	//Specific
+	static wxButton* CreateAddButton(wxWindow* parent, int id, const wxString& label, const wxPoint& pos, const wxSize& size);
+	static wxButton* CreateOperatorButton(wxWindow* parent, int id, const wxString& label, const wxPoint& pos, const wxSize& size);
 	
 
 };

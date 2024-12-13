@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "ButtonFactory.h"
 #include <wx/tokenzr.h>
 #include <string>
 #include <sstream>
@@ -38,7 +39,12 @@ Window::Window ()
 	//numbers
 	button1 = new wxButton(this, ID_ONE, "1", wxPoint(0, 100), wxSize (100,100));
 	button2 = new wxButton(this, ID_TWO, "2", wxPoint(100, 100), wxSize(100,100));
+
+
 	wxButton* button3 = new wxButton(this, ID_THREE, "3", wxPoint(200, 100), wxSize(100, 100));
+	//ButtonFactory::CreateNumberButton(this, ID_THREE, "3", wxPoint(200, 100), wxSize(100, 100));
+
+
 	wxButton* button4 = new wxButton(this, ID_FOUR, "4", wxPoint(0, 200), wxSize(100, 100));
 	wxButton* button5 = new wxButton(this, ID_FIVE, "5", wxPoint(100, 200), wxSize(100, 100));
 	wxButton* button6 = new wxButton(this, ID_SIX, "6", wxPoint(200, 200), wxSize(100, 100));
@@ -53,9 +59,15 @@ Window::Window ()
 	wxButton* buttonTan = new wxButton(this, ID_TAN, "Tan", wxPoint(200, 500), wxSize(100, 100));
 
 	//Binary Operator
-	wxButton* buttonPlus = new wxButton(this, ID_PLUS, "+", wxPoint(300, 0), wxSize(100, 100));
-	wxButton* buttonMinus = new wxButton(this, ID_MINUS, "-", wxPoint(300, 100), wxSize(100, 100));
-	wxButton* buttonMultiply = new wxButton(this, ID_MULTIPLY, "*", wxPoint(300, 200), wxSize(100, 100));
+	wxButton* buttonPlus = ButtonFactory::CreateAddButton(this, ID_PLUS, "+", wxPoint(300, 0), wxSize(100, 100));
+	wxButton* buttonMinus = ButtonFactory::CreateOperatorButton(this, ID_MINUS, "-", wxPoint(300, 100), wxSize(100, 100));
+	wxButton* buttonMultiply = ButtonFactory::CreateOperatorButton(this, ID_MULTIPLY, "*", wxPoint(300, 200), wxSize(100, 100));
+
+
+
+	//wxButton* buttonPlus = new wxButton(this, ID_PLUS, "+", wxPoint(300, 0), wxSize(100, 100));
+	//wxButton* buttonMinus = new wxButton(this, ID_MINUS, "-", wxPoint(300, 100), wxSize(100, 100));
+	//wxButton* buttonMultiply = new wxButton(this, ID_MULTIPLY, "*", wxPoint(300, 200), wxSize(100, 100));
 	wxButton* buttonDivide = new wxButton(this, ID_DIVIDE, "/", wxPoint(300, 300), wxSize(100, 100));
 	wxButton* buttonModulo = new wxButton(this, ID_MODULO, "%", wxPoint(300, 400), wxSize(100, 100));
 
