@@ -1,8 +1,11 @@
 #include "Window.h"
+#include "ButtonFactory.h"
 #include <wx/tokenzr.h>
 #include <string>
 #include <sstream>
 #include <cmath> // big math stuff for sin cos and tan
+//I should not have to change the event table\
+//is this really all part 1 asks of me?
 wxBEGIN_EVENT_TABLE(Window, wxFrame)
 EVT_BUTTON(ID_ONE, Window::OnButtonClicked)
 EVT_BUTTON(ID_TWO, Window::OnButtonClicked)
@@ -36,35 +39,46 @@ Window::Window ()
 	: wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(200, 200), wxSize(500, 600))
 {
 	//numbers
-	button1 = new wxButton(this, ID_ONE, "1", wxPoint(0, 100), wxSize (100,100));
-	button2 = new wxButton(this, ID_TWO, "2", wxPoint(100, 100), wxSize(100,100));
-	wxButton* button3 = new wxButton(this, ID_THREE, "3", wxPoint(200, 100), wxSize(100, 100));
-	wxButton* button4 = new wxButton(this, ID_FOUR, "4", wxPoint(0, 200), wxSize(100, 100));
-	wxButton* button5 = new wxButton(this, ID_FIVE, "5", wxPoint(100, 200), wxSize(100, 100));
-	wxButton* button6 = new wxButton(this, ID_SIX, "6", wxPoint(200, 200), wxSize(100, 100));
-	wxButton* button7 = new wxButton(this, ID_SEVEN, "7", wxPoint(0, 300), wxSize(100, 100));
-	wxButton* button8 = new wxButton(this, ID_EIGHT, "8", wxPoint(100, 300), wxSize(100, 100));
-	wxButton* button9 = new wxButton(this, ID_NINE, "9", wxPoint(200, 300), wxSize(100, 100));
-	wxButton* button0 = new wxButton(this, ID_ZERO, "0", wxPoint(0, 400), wxSize(100, 100));
+	//button1 = new wxButton(this, ID_ONE, "1", wxPoint(0, 100), wxSize (100,100));
+	button1 = ButtonFactory::CreateNumberButton(this, ID_ONE, "1", wxPoint(0, 100), wxSize(100, 100));
+	button2 = ButtonFactory::CreateNumberButton(this, ID_TWO, "2", wxPoint(100, 100), wxSize(100,100));
+
+
+	//wxButton* button3 = new wxButton(this, ID_THREE, "3", wxPoint(200, 100), wxSize(100, 100));
+	wxButton* button3 = ButtonFactory::CreateNumberButton(this, ID_THREE, "3", wxPoint(200, 100), wxSize(100, 100));
+	wxButton* button4 = ButtonFactory::CreateNumberButton(this, ID_FOUR, "4", wxPoint(0, 200), wxSize(100, 100));
+	wxButton* button5 = ButtonFactory::CreateNumberButton(this, ID_FIVE, "5", wxPoint(100, 200), wxSize(100, 100));
+	wxButton* button6 = ButtonFactory::CreateNumberButton(this, ID_SIX, "6", wxPoint(200, 200), wxSize(100, 100));
+	wxButton* button7 = ButtonFactory::CreateNumberButton(this, ID_SEVEN, "7", wxPoint(0, 300), wxSize(100, 100));
+	wxButton* button8 = ButtonFactory::CreateNumberButton(this, ID_EIGHT, "8", wxPoint(100, 300), wxSize(100, 100));
+	wxButton* button9 = ButtonFactory::CreateNumberButton(this, ID_NINE, "9", wxPoint(200, 300), wxSize(100, 100));
+	wxButton* button0 = ButtonFactory::CreateNumberButton(this, ID_ZERO, "0", wxPoint(0, 400), wxSize(100, 100));
 
 	//Unary Operator
-	wxButton* buttonSin = new wxButton(this, ID_SIN, "Sin", wxPoint(0, 500), wxSize(100, 100));
-	wxButton* buttonCos = new wxButton(this, ID_COS, "Cos", wxPoint(100, 500), wxSize(100, 100));
-	wxButton* buttonTan = new wxButton(this, ID_TAN, "Tan", wxPoint(200, 500), wxSize(100, 100));
+	wxButton* buttonSin = ButtonFactory::CreateUnaryButton(this, ID_SIN, "Sin", wxPoint(0, 500), wxSize(100, 100));
+	wxButton* buttonCos = ButtonFactory::CreateUnaryButton(this, ID_COS, "Cos", wxPoint(100, 500), wxSize(100, 100));
+	wxButton* buttonTan = ButtonFactory::CreateUnaryButton(this, ID_TAN, "Tan", wxPoint(200, 500), wxSize(100, 100));
 
 	//Binary Operator
-	wxButton* buttonPlus = new wxButton(this, ID_PLUS, "+", wxPoint(300, 0), wxSize(100, 100));
-	wxButton* buttonMinus = new wxButton(this, ID_MINUS, "-", wxPoint(300, 100), wxSize(100, 100));
-	wxButton* buttonMultiply = new wxButton(this, ID_MULTIPLY, "*", wxPoint(300, 200), wxSize(100, 100));
-	wxButton* buttonDivide = new wxButton(this, ID_DIVIDE, "/", wxPoint(300, 300), wxSize(100, 100));
-	wxButton* buttonModulo = new wxButton(this, ID_MODULO, "%", wxPoint(300, 400), wxSize(100, 100));
+	wxButton* buttonPlus = ButtonFactory::CreateAddButton(this, ID_PLUS, "+", wxPoint(300, 0), wxSize(100, 100));
+	wxButton* buttonMinus = ButtonFactory::CreateOperatorButton(this, ID_MINUS, "-", wxPoint(300, 100), wxSize(100, 100));
+	wxButton* buttonMultiply = ButtonFactory::CreateOperatorButton(this, ID_MULTIPLY, "*", wxPoint(300, 200), wxSize(100, 100));
+	wxButton* buttonDivide = ButtonFactory::CreateOperatorButton(this, ID_DIVIDE, "/", wxPoint(300, 300), wxSize(100, 100));
+	wxButton * buttonModulo = ButtonFactory::CreateOperatorButton(this, ID_MODULO, "%", wxPoint(300, 400), wxSize(100, 100));
+
+
+	//wxButton* buttonPlus = new wxButton(this, ID_PLUS, "+", wxPoint(300, 0), wxSize(100, 100));
+	//wxButton* buttonMinus = new wxButton(this, ID_MINUS, "-", wxPoint(300, 100), wxSize(100, 100));
+	//wxButton* buttonMultiply = new wxButton(this, ID_MULTIPLY, "*", wxPoint(300, 200), wxSize(100, 100));
+	//wxButton* buttonDivide = new wxButton(this, ID_DIVIDE, "/", wxPoint(300, 300), wxSize(100, 100));
+	//wxButton* buttonModulo = new wxButton(this, ID_MODULO, "%", wxPoint(300, 400), wxSize(100, 100));
 
 	//Others
-	wxButton* buttonEqual = new wxButton(this, ID_EQUAL, "=", wxPoint(100, 400), wxSize(200, 100));
-	wxButton* buttonClear = new wxButton(this, ID_CLEAR, "Clear", wxPoint(400, 100), wxSize(100, 100));
-	wxButton* buttonBack = new wxButton(this, ID_BACKSPACE, "Back", wxPoint(400, 200), wxSize(100, 100));
-	wxButton* buttonDecimal = new wxButton(this, ID_DECIMAL, ".", wxPoint(400, 300), wxSize(100, 100));
-	wxButton* buttonNegative = new wxButton(this, ID_NEGATIVE, "Negative", wxPoint(400, 400), wxSize(100, 100));
+	wxButton* buttonEqual = ButtonFactory::CreateEqualButton(this, ID_EQUAL, "=", wxPoint(100, 400), wxSize(200, 100));
+	wxButton* buttonClear = ButtonFactory::CreateClearButton(this, ID_CLEAR, "Clear", wxPoint(400, 100), wxSize(100, 100));
+	wxButton* buttonBack = ButtonFactory::CreateBackButton(this, ID_BACKSPACE, "Back", wxPoint(400, 200), wxSize(100, 100));
+	wxButton* buttonDecimal = ButtonFactory::CreateDecimalButton(this, ID_DECIMAL, ".", wxPoint(400, 300), wxSize(100, 100));
+	wxButton* buttonNegative = ButtonFactory::CreateNegativeButton(this, ID_NEGATIVE, "Negative", wxPoint(400, 400), wxSize(100, 100));
 
 	//Text Control
 	textBox = new wxTextCtrl(this, wxID_ANY, "", wxPoint(0, 0), wxSize(300, 100));
