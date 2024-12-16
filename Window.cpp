@@ -248,7 +248,9 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 			//equal needs a seperate equation
 		case ID_EQUAL:
 			currentText.ToDouble(&Operand2);
+			//wxString equation = textBox->GetValue();
 			double result = 0.0;
+
 			if (currentText.StartsWith("sin")) {
 				//result = std::sin(Operand2);
 				wxString angleText = currentText.SubString(4, currentText.Length() - 2); // Inside the parentheses
