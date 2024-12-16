@@ -1,10 +1,10 @@
 #include "CalculatorProcessor.h"
-
+//you need the instance
 CalculatorProcessor& CalculatorProcessor::GetInstance() {
     static CalculatorProcessor instance;
     return instance;
 }
-
+//you need to make the results 
 double CalculatorProcessor::Add(double a, double b)
 {
     return a + b;
@@ -38,6 +38,11 @@ double CalculatorProcessor::Tan(double value)
     return std::tan(value);
 }
 
+
+
+
+
+//this is to calculate 
 double CalculatorProcessor::Calculate(const std::string& expression)
 {
     std::string processedExpr = PreprocessExpression(expression);
@@ -57,7 +62,7 @@ std::string CalculatorProcessor::PreprocessExpression(const std::string& expr)
     return result;
 
 }
-
+//should seperae the tokens
 std::vector<std::string> CalculatorProcessor::Tokenize(const std::string& expr)
 {
     std::vector<std::string> tokens;
@@ -71,35 +76,30 @@ std::vector<std::string> CalculatorProcessor::Tokenize(const std::string& expr)
     return tokens;
 
 }
-
+//set the precedance 
 std::vector<std::string> CalculatorProcessor::ConvertToRPN(const std::vector<std::string>& tokens)
 {
     std::stack<std::string> operators;
     std::vector<std::string> output;
     std::map<std::string, int> precedence = {
-        {"sin", 4}, {"cos", 4}, {"tan", 4},
-        {"*", 3}, {"/", 3}, {"%", 3},
-        {"+", 2}, {"-", 2},
-        {"(", 1}, {")", 1}
+        {"sin", 4}, 
+        {"cos", 4}, 
+        {"tan", 4},
+        {"*", 3}, 
+        {"/", 3}, 
+        {"%", 3},
+        {"+", 2}, 
+        {"-", 2},
+
     };
     for (const std::string& token : tokens) {
-        if (isdigit(token[0])) {  
+        if (isdigit(token[0])) {
             output.push_back(token);
         }
-        else if (token == "(") {
+        else if (IsFunction(token)) {
             operators.push(token);
         }
-        else if (token == ")") {
-            while (!operators.empty() && operators.top() != "(") {
-                output.push_back(operators.top());
-                operators.pop();
-            }
-            operators.pop();  
-        }
-        else if (IsFunction(token)) {
-            operators.push(token); 
-        }
-        else {  
+        else {
             while (!operators.empty() && precedence[operators.top()] >= precedence[token]) {
                 output.push_back(operators.top());
                 operators.pop();
@@ -115,12 +115,12 @@ std::vector<std::string> CalculatorProcessor::ConvertToRPN(const std::vector<std
     return output;
 
 }
-
+//need the functions 
 bool CalculatorProcessor::IsFunction(const std::string& token)
 {
-        return token == "sin" 
-            || token == "cos" 
-            || token == "tan";
+    return token == "sin"
+        || token == "cos"
+        || token == "tan";
 }
 
 double CalculatorProcessor::EvaluateRPN(const std::vector<std::string>& rpn)
@@ -129,7 +129,7 @@ double CalculatorProcessor::EvaluateRPN(const std::vector<std::string>& rpn)
 
     for (const std::string& token : rpn) {
         if (isdigit(token[0])) {
-            stack.push(std::stod(token));  
+            stack.push(std::stod(token));
         }
         else if (IsFunction(token)) {
             double value = stack.top();
@@ -150,6 +150,28 @@ double CalculatorProcessor::EvaluateRPN(const std::vector<std::string>& rpn)
         }
     }
 
-    return stack.top();  
+    return stack.top();
 }
+//bool CalculatorProcessor::IsOperator(const std::string& token)
+//{
+//    return (token == "+"
+//  || token == "-"
+//  || token == "*"
+//  || token == "/"
+//  || token == "%");
+//function
 
+
+
+//int CalculatorProcessor::GetOperatorPrecedence(const std::string& op)
+//{
+  //  if (op == "sin" || op == "cos" || op == "tan")
+    //    return 4;
+   // if (op == "+" || op == "-")
+     //   return 1;
+   // if (op == "*" || op == "/")
+     //   return 2;
+    //if (op == "%")
+      //  return 3;
+   // return 0;
+//}

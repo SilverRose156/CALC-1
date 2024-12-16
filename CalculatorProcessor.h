@@ -7,6 +7,8 @@
 #include <stack>
 #include <map>
 #include <unordered_map>
+#include <deque>
+
 class CalculatorProcessor
 {
 public:
