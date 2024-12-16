@@ -178,37 +178,24 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 
 			//+-*/.%
 		case ID_PLUS:
-			//textBox->AppendText("+");
-			//Operand1 = wxAtoi(currentText);
-			//Operators = 1;  
-			//textBox->AppendText("+");
-			//Operand1 = 0.0;
-			//currentText.ToDouble(&Operand1);  
-			//Operators = 1;  
-			//textBox->AppendText("+");
+			
 			fast = textBox->GetValue();
 			Operand1 = wxAtof(fast);
 			Operators = 1;
 			textBox->SetValue(" ");
 			break;
 		case ID_MINUS:
-			//textBox->AppendText("-");
-			//Operand1 = wxAtof(currentText);
+			
 			fast = textBox->GetValue();
 			Operand1 = wxAtof(fast);
 			Operators = -1;
 			textBox->SetValue(" ");
-			//Operand1 = wxAtoi(currentText);  
-			//Operators = -1;  
-			//textBox->AppendText("-");
+			
 			
 			
 			break;
 		case ID_MULTIPLY:
-			//textBox->AppendText("*");
-			//Operand1 = wxAtoi(currentText); 
-			//Operators = 2;  
-			//textBox->AppendText("*");
+			
 			fast = textBox->GetValue();
 			Operand1 = wxAtof(fast);
 			Operators = 2;
