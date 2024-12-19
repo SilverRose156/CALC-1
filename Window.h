@@ -10,8 +10,8 @@ private:
 	wxString fast;
 	double Operand1 = 0;  
 	double Operand2 = 0;   
-	int Operators = 0;
-	
+	int Operator = 0;
+	bool operatorClicked;
 
 public:
 	Window();

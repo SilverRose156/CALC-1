@@ -40,7 +40,8 @@ double CalculatorProcessor::Tan(double value)
 
 
 
-
+// set another text box for all types in then shunting yard 
+//
 
 //this is to calculate 
 double CalculatorProcessor::Calculate(const std::string& expression)
@@ -76,7 +77,7 @@ std::vector<std::string> CalculatorProcessor::Tokenize(const std::string& expr)
     return tokens;
 
 }
-//set the precedance 
+
 std::vector<std::string> CalculatorProcessor::ConvertToRPN(const std::vector<std::string>& tokens)
 {
     std::stack<std::string> operators;
@@ -152,6 +153,11 @@ double CalculatorProcessor::EvaluateRPN(const std::vector<std::string>& rpn)
 
     return stack.top();
 }
+
+
+
+
+
 //bool CalculatorProcessor::IsOperator(const std::string& token)
 //{
 //    return (token == "+"
@@ -175,3 +181,33 @@ double CalculatorProcessor::EvaluateRPN(const std::vector<std::string>& rpn)
       //  return 3;
    // return 0;
 //}
+
+
+
+//symbol struct
+//struct Symbol {
+//    std::string value;
+//    enum class Type : uint8_t {
+//        Unknown,
+//        Literal_Numeric,
+//        Operator,
+//        Parenthesis_Open,
+//        Parenthesis_Close,
+//        Function
+//    } type = Type::Unknown;
+
+//    int precedence = 0;
+//    int arguments = 0;
+//};
+//precedance
+//std::unordered_map<std::string, Symbol> operators = {
+  //  {"+", {"", Symbol::Type::Operator, 2, 2}},
+  //  {"-", {"", Symbol::Type::Operator, 2, 2}},
+  //  {"*", {"", Symbol::Type::Operator, 3, 2}},
+  //  {"/", {"", Symbol::Type::Operator, 3, 2}},
+  //  {"%", {"", Symbol::Type::Operator, 3, 2}},
+  //  {"sin", {"", Symbol::Type::Function, 4, 1}},
+  //  {"cos", {"", Symbol::Type::Function, 4, 1}},
+  //  {"tan", {"", Symbol::Type::Function, 4, 1}},
+//};
+//set the precedance 

@@ -13,6 +13,10 @@ class CalculatorProcessor
 {
 public:
     static CalculatorProcessor& GetInstance();
+   
+
+    double Calculate(const std::string& expression);
+private:
     double Add(double a, double b);
     double Subtract(double a, double b);
     double Multiply(double a, double b);
@@ -22,9 +26,6 @@ public:
     double Sin(double value);
     double Cos(double value);
     double Tan(double value);
-
-    double Calculate(const std::string& expression);
-private:
     CalculatorProcessor() {}
     CalculatorProcessor(const CalculatorProcessor&) = delete;
     CalculatorProcessor& operator=(const CalculatorProcessor&) = delete;

@@ -66,13 +66,6 @@ Window::Window ()
 	wxButton* buttonDivide = ButtonFactory::CreateOperatorButton(this, ID_DIVIDE, "/", wxPoint(300, 300), wxSize(100, 100));
 	wxButton * buttonModulo = ButtonFactory::CreateOperatorButton(this, ID_MODULO, "%", wxPoint(300, 400), wxSize(100, 100));
 
-
-	//wxButton* buttonPlus = new wxButton(this, ID_PLUS, "+", wxPoint(300, 0), wxSize(100, 100));
-	//wxButton* buttonMinus = new wxButton(this, ID_MINUS, "-", wxPoint(300, 100), wxSize(100, 100));
-	//wxButton* buttonMultiply = new wxButton(this, ID_MULTIPLY, "*", wxPoint(300, 200), wxSize(100, 100));
-	//wxButton* buttonDivide = new wxButton(this, ID_DIVIDE, "/", wxPoint(300, 300), wxSize(100, 100));
-	//wxButton* buttonModulo = new wxButton(this, ID_MODULO, "%", wxPoint(300, 400), wxSize(100, 100));
-
 	//Others
 	wxButton* buttonEqual = ButtonFactory::CreateEqualButton(this, ID_EQUAL, "=", wxPoint(100, 400), wxSize(200, 100));
 	wxButton* buttonClear = ButtonFactory::CreateClearButton(this, ID_CLEAR, "Clear", wxPoint(400, 100), wxSize(100, 100));
@@ -89,42 +82,22 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 {
 	wxString currentText = textBox->GetValue();
 	int buttonId = event.GetId();
-	
+
 	if (currentText == "0") {
 		switch (buttonId) {
-		case ID_ONE:
-			textBox->SetValue("1");
+		case ID_ONE:textBox->SetValue("1"); break;
+		case ID_TWO:textBox->SetValue("2"); break;
+		case ID_THREE:textBox->SetValue("3"); break;
+		case ID_FOUR:textBox->SetValue("4"); break;
+		case ID_FIVE:textBox->SetValue("5"); break;
+		case ID_SIX:textBox->SetValue("6"); break;
+		case ID_SEVEN:textBox->SetValue("7"); break;
+		case ID_EIGHT:textBox->SetValue("8"); break;
+		case ID_NINE:textBox->SetValue("9"); break;
+		case ID_ZERO:textBox->SetValue("0"); break;
+		case ID_DECIMAL:
+			textBox->SetValue("."); // you have to have this to allow it to work right?
 			break;
-		case ID_TWO:
-			textBox->SetValue("2");
-			break;
-		case ID_THREE:
-			textBox->SetValue("3");
-			break;
-		case ID_FOUR:
-			textBox->SetValue("4");
-			break;
-		case ID_FIVE:
-			textBox->SetValue("5");
-			break;
-		case ID_SIX:
-			textBox->SetValue("6");
-			break;
-		case ID_SEVEN:
-			textBox->SetValue("7");
-			break;
-		case ID_EIGHT:
-			textBox->SetValue("8");
-			break;
-		case ID_NINE:
-			textBox->SetValue("9");
-			break;
-		case ID_ZERO:
-			textBox->SetValue("0");
-			break;
-			case ID_DECIMAL:
-				textBox->SetValue("."); // you have to have this to allow it to work right?
-				break;
 
 		default:
 			break;
@@ -132,36 +105,16 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 	}
 	else {
 		switch (buttonId) {
-		case ID_ONE:
-			textBox->AppendText("1");
-			break;
-		case ID_TWO:
-			textBox->AppendText("2");
-			break;
-		case ID_THREE:
-			textBox->AppendText("3");
-			break;
-		case ID_FOUR:
-			textBox->AppendText("4");
-			break;
-		case ID_FIVE:
-			textBox->AppendText("5");
-			break;
-		case ID_SIX:
-			textBox->AppendText("6");
-			break;
-		case ID_SEVEN:
-			textBox->AppendText("7");
-			break;
-		case ID_EIGHT:
-			textBox->AppendText("8");
-			break;
-		case ID_NINE:
-			textBox->AppendText("9");
-			break;
-		case ID_ZERO:
-			textBox->AppendText("0");
-			break;
+		case ID_ONE:textBox->AppendText("1"); break;
+		case ID_TWO:textBox->AppendText("2"); break;
+		case ID_THREE:textBox->AppendText("3"); break;
+		case ID_FOUR:textBox->AppendText("4"); break;
+		case ID_FIVE:textBox->AppendText("5"); break;
+		case ID_SIX:textBox->AppendText("6"); break;
+		case ID_SEVEN:textBox->AppendText("7"); break;
+		case ID_EIGHT:textBox->AppendText("8"); break;
+		case ID_NINE:textBox->AppendText("9"); break;
+		case ID_ZERO:textBox->AppendText("0"); break;
 
 
 			//sin cos tan
@@ -178,56 +131,72 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 
 			//+-*/.%
 		case ID_PLUS:
-			
-			fast = textBox->GetValue();
-			Operand1 = wxAtof(fast);
-			Operators = 1;
-			textBox->SetValue(" ");
+			//Operator = 1;
+			//textBox->AppendText("+");
+			//Operand1 = wxAtof(currentText);
+
+			Operand1 = wxAtof(currentText);
+			Operator = 1;  // Plus operator
+			textBox->SetValue("+");
 			break;
+
+			//break;
 		case ID_MINUS:
-			
-			fast = textBox->GetValue();
-			Operand1 = wxAtof(fast);
-			Operators = -1;
-			textBox->SetValue(" ");
-			
-			
-			
+			//textBox->AppendText("-");
+			//Operand1 = wxAtof(currentText);
+			//Operator = -1;
+			//break;
+			Operand1 = wxAtof(currentText);
+			Operator = -1;  // Plus operator
+			textBox->AppendText("-");
 			break;
 		case ID_MULTIPLY:
-			
-			fast = textBox->GetValue();
-			Operand1 = wxAtof(fast);
-			Operators = 2;
-			textBox->SetValue(" ");
+			//textBox->AppendText("*");
+			//Operand1 = wxAtof(currentText);
+			//Operator = 2;
+			//break;
+			Operand1 = wxAtof(currentText);
+			Operator = 2;  // Plus operator
+			textBox->AppendText("*");
 			break;
 		case ID_DIVIDE:
 			//textBox->AppendText("/");
-			//Operand1 = wxAtoi(currentText);  
-			//Operators = 3;  
-			//textBox->AppendText("/");
-			fast = textBox->GetValue();
-			Operand1 = wxAtof(fast);
-			Operators = 3;
-			textBox->SetValue(" ");
+			//Operand1 = wxAtof(currentText);
+			//Operator = 3;
+			//break;
+			Operand1 = wxAtof(currentText);
+			Operator = 3;  // Plus operator
+			textBox->AppendText("%");
 			break;
 		case ID_MODULO:
 			//textBox->AppendText("%");
-			//Operand1 = wxAtoi(currentText);  
-			//Operators = 4;  
-			//textBox->AppendText("%");
-			fast = textBox->GetValue();
-			Operand1 = wxAtof(fast);
-			Operators = 4;
-			textBox->SetValue(" ");
+			//Operand1 = wxAtof(currentText);
+			//Operator = 4;
+			//break;
+			Operand1 = wxAtof(currentText);
+			Operator = 4;  // Plus operator
+			textBox->AppendText("%");
 			break;
-			break;
+
+
+
+
+
+
+
+
 		case ID_DECIMAL:
 			if (!currentText.Contains(".")) {
 				textBox->AppendText(".");
 			}
-				break;
-				//Calculation and special things 
+
+			break;
+
+
+
+
+
+			//Calculation and special things 
 		case ID_CLEAR:
 			textBox->Clear();
 			break;
@@ -237,7 +206,8 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 				currentText = currentText.Left(currentText.Length() - 1);
 				//textBox->Remove(currentText.Length() - 1, 1);
 				textBox->SetValue(currentText);
-			
+			}
+
 			break;
 			//negative is at the front of the equation
 		case ID_NEGATIVE:
@@ -245,68 +215,185 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 			textBox->SetValue("-" + currentText);
 
 			break;
-			//equal needs a seperate equation
+
 		case ID_EQUAL:
-			currentText.ToDouble(&Operand2);
-			//wxString equation = textBox->GetValue();
-			double result = 0.0;
 
-			if (currentText.StartsWith("sin")) {
-				//result = std::sin(Operand2);
-				wxString angleText = currentText.SubString(4, currentText.Length() - 2); // Inside the parentheses
-				double angle = wxAtof(angleText); 
-				angle = wxDegToRad(angle); 
-				result = std::sin(angle);
-				textBox->SetValue(wxString::Format("%.2f", result));
-			}
-			else if (currentText.StartsWith("cos")) {
-				//result = std::cos(Operand2);
-				wxString angleText = currentText.SubString(4, currentText.Length() - 2); // Inside the parentheses
-				double angle = wxAtof(angleText);
-				angle = wxDegToRad(angle);
-				result = std::cos(angle);
-				textBox->SetValue(wxString::Format("%.2f", result));
-			}
-			else if (currentText.StartsWith("tan")) {
-				//result = std::tan(Operand2);
-				wxString angleText = currentText.SubString(4, currentText.Length() - 2); // Inside the parentheses
-				double angle = wxAtof(angleText);
-				angle = wxDegToRad(angle);
-				result = std::tan(angle);
-				textBox->SetValue(wxString::Format("%.2f", result));
-			}
-			else {
-				switch (Operators) {
-				case 1:  // Add
-					result = Operand1 + Operand2;
-					break;
-				case -1: // Subtract
-					result = Operand1 - Operand2;
-					break;
-				case 2:  // Multiply
-					result = Operand1 * Operand2;
-					break;
-				case 3:  // Divide
-					if (Operand2 != 0) {
-						result = Operand1 / Operand2;
-					}
-					else {
-						textBox->SetValue("Error");
-						return;
-					}
-					break;
-				case 4:  // Mod
-					result = fmod(Operand1, Operand2);
-					break;
-				default:
-					break;
+			if (buttonId == ID_EQUAL) {
+				Operand2 = wxAtof(currentText);
+				double result = 0.0;
 
+				// (sin, cos, tan)
+				if (operatorClicked && (Operator == 0)) {
+					if (currentText.StartsWith("sin(")) {
+						result = sin(wxAtof(currentText.SubString(4, currentText.Len() - 2)));
+					}
+					else if (currentText.StartsWith("cos(")) {
+						result = cos(wxAtof(currentText.SubString(4, currentText.Len() - 2)));
+					}
+					else if (currentText.StartsWith("tan(")) {
+						result = tan(wxAtof(currentText.SubString(4, currentText.Len() - 2)));
+					}
 				}
-				textBox->SetValue(wxString::Format("%.2f", result));
+				else {
+					// binary operators
+					switch (Operator) {
+					case 1:  // Add
+						result = Operand1 + Operand2;
+						break;
+					case -1: // Subtract
+						result = Operand1 - Operand2;
+						break;
+					case 2:  // Multiply
+						result = Operand1 * Operand2;
+						break;
+					case 3:  // Divide
+						if (Operand2 != 0) {
+							result = Operand1 / Operand2;
+						}
+						else {
+							textBox->SetValue("Error");
+							return;
+						}
+						break;
+					case 4:  // Mod
+						result = fmod(Operand1, Operand2);
+						break;
+					default:
+						break;
+					}
+
+					textBox->SetValue(wxString::Format("%.2f", result));
+					Operand1 = result;
+					Operand2 = 0.0;
+					Operator = 0;
+					//operatorClicked = false;
+				}
 				break;
-			}
 			}
 		}
 	}
+
 }
 
+//Operand1 = wxAtoi(currentText);
+			//Operators = 1;  
+			//textBox->AppendText("+");
+			//Operand1 = 0.0;
+			//currentText.ToDouble(&Operand1);  
+			//Operators = 1;
+			// 
+			// 
+			//  
+
+// no math until equal sign 
+
+			//fast = textBox->GetValue();
+			//Operand1 = wxAtof(fast);
+			//Operators = 1;
+			//textBox->SetValue(" ");
+
+
+
+//Operand1 = wxAtof(currentText);
+			//fast = textBox->GetValue();
+			//Operand1 = wxAtof(fast);
+			//Operators = -1;
+			//textBox->SetValue(" ");
+			//Operand1 = wxAtoi(currentText);  
+			//Operators = -1;  
+			//textBox->AppendText("-");
+
+
+
+//textBox->AppendText("*");
+			//Operand1 = wxAtoi(currentText); 
+			//Operators = 2;  
+//fast = textBox->GetValue();
+			//Operand1 = wxAtof(fast);
+			//Operators = 2;
+			//textBox->SetValue(" ");
+
+//textBox->AppendText("/");
+			//Operand1 = wxAtoi(currentText);  
+			//Operators = 3;  
+
+//fast = textBox->GetValue();
+			//Operand1 = wxAtof(fast);
+			//Operators = 3;
+			//textBox->SetValue(" ");
+
+//textBox->AppendText("%");
+			//Operand1 = wxAtoi(currentText);  
+			//Operators = 4;  
+
+//fast = textBox->GetValue();
+			//Operand1 = wxAtof(fast);
+			//Operators = 4;
+			//textBox->SetValue(" ");
+
+
+
+//wxButton* buttonPlus = new wxButton(this, ID_PLUS, "+", wxPoint(300, 0), wxSize(100, 100));
+	//wxButton* buttonMinus = new wxButton(this, ID_MINUS, "-", wxPoint(300, 100), wxSize(100, 100));
+	//wxButton* buttonMultiply = new wxButton(this, ID_MULTIPLY, "*", wxPoint(300, 200), wxSize(100, 100));
+	//wxButton* buttonDivide = new wxButton(this, ID_DIVIDE, "/", wxPoint(300, 300), wxSize(100, 100));
+	//wxButton* buttonModulo = new wxButton(this, ID_MODULO, "%", wxPoint(300, 400), wxSize(100, 100));
+
+
+//	currentText.ToDouble(&Operand2);
+		//	double result = 0.0;
+		//	if (currentText.StartsWith("sin")) {
+		//		
+		//		wxString angleText = currentText.SubString(4, currentText.Length() - 2); // Inside the parentheses
+		//		double angle = wxAtof(angleText);
+		//		angle = wxDegToRad(angle);
+		//		result = std::sin(angle);
+		//		textBox->SetValue(wxString::Format("%.2f", result));
+		//	}
+		//	else if (currentText.StartsWith("cos")) {
+		//		
+		//		wxString angleText = currentText.SubString(4, currentText.Length() - 2); // Inside the parentheses
+		//		double angle = wxAtof(angleText);
+		//		angle = wxDegToRad(angle);
+		//		result = std::cos(angle);
+		//		textBox->SetValue(wxString::Format("%.2f", result));
+		//	}
+		//	else if (currentText.StartsWith("tan")) {
+		//		
+		//		wxString angleText = currentText.SubString(4, currentText.Length() - 2); // Inside the parentheses
+		//		double angle = wxAtof(angleText);
+		//		angle = wxDegToRad(angle);
+		//		result = std::tan(angle);
+		//		textBox->SetValue(wxString::Format("%.2f", result));
+		//	}
+		//	else {
+		//		switch (Operators) {
+		//		case 1:  // Add
+		//			result = Operand1 + Operand2;
+		//			break;
+		//		case -1: // Subtract
+		//			result = Operand1 - Operand2;
+		//			break;
+		//		case 2:  // Multiply
+		//			result = Operand1 * Operand2;
+		//			break;
+		//		case 3:  // Divide
+		//			if (Operand2 != 0) {
+		//				result = Operand1 / Operand2;
+		//			}
+		//			else {
+		//				textBox->SetValue("Error");
+		//				return;
+		//			}
+		//			break;
+		//		case 4:  // Mod
+		//			result = fmod(Operand1, Operand2);
+		//			break;
+		//		default:
+		//			break;
+//
+		//		}
+		//		textBox->SetValue(wxString::Format("%.2f", result));
+		//		break;
+		//	}
+		//	}
