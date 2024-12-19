@@ -12,7 +12,7 @@ private:
 	double Operand2 = 0;   
 	int Operator = 0;
 	bool operatorClicked;
-
+	
 public:
 	Window();
 	enum 

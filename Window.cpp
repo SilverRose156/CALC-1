@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <cmath> // big math stuff for sin cos and tan
+#include "CalculatorProcessor.h"
 //I should not have to change the event table\
 //is this really all part 1 asks of me?
 wxBEGIN_EVENT_TABLE(Window, wxFrame)
@@ -137,7 +138,7 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 
 			Operand1 = wxAtof(currentText);
 			Operator = 1;  // Plus operator
-			textBox->SetValue("+");
+			textBox->AppendText("+");
 			break;
 
 			//break;
@@ -146,8 +147,8 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 			//Operand1 = wxAtof(currentText);
 			//Operator = -1;
 			//break;
-			Operand1 = wxAtof(currentText);
-			Operator = -1;  // Plus operator
+			//Operand1 = wxAtof(currentText);
+			//Operator = -1;  // Plus operator
 			textBox->AppendText("-");
 			break;
 		case ID_MULTIPLY:
@@ -155,8 +156,8 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 			//Operand1 = wxAtof(currentText);
 			//Operator = 2;
 			//break;
-			Operand1 = wxAtof(currentText);
-			Operator = 2;  // Plus operator
+			//Operand1 = wxAtof(currentText);
+			//Operator = 2;  // Plus operator
 			textBox->AppendText("*");
 			break;
 		case ID_DIVIDE:
@@ -164,8 +165,8 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 			//Operand1 = wxAtof(currentText);
 			//Operator = 3;
 			//break;
-			Operand1 = wxAtof(currentText);
-			Operator = 3;  // Plus operator
+			//Operand1 = wxAtof(currentText);
+			//Operator = 3;  // Plus operator
 			textBox->AppendText("%");
 			break;
 		case ID_MODULO:
@@ -173,8 +174,8 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 			//Operand1 = wxAtof(currentText);
 			//Operator = 4;
 			//break;
-			Operand1 = wxAtof(currentText);
-			Operator = 4;  // Plus operator
+			//Operand1 = wxAtof(currentText);
+			//Operator = 4;  // Plus operator
 			textBox->AppendText("%");
 			break;
 
@@ -216,64 +217,142 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 
 			break;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		case ID_EQUAL:
+			std::string expression = currentText.ToStdString();
+			double result = CalculatorProcessor::GetInstance().Calculate(expression);
+			textBox->SetValue(wxString::Format("%.2f", result));
+			Operand1 = result; 
+			Operand2 = 0.0;
+			Operator = 0; 
+			operatorClicked = false;
+			//if (buttonId == ID_EQUAL) {
+			//	Operand2 = wxAtof(currentText);
+			//	double result = 0.0;
+//
+			//	// (sin, cos, tan)
+			//	if (operatorClicked && (Operator == 0)) {
+			//		if (currentText.StartsWith("sin(")) {
+			//			//result = sin(wxAtof(currentText.SubString(4, currentText.Len() - 2)));
+			//			result = CalculatorProcessor::GetInstance().Sin(wxAtof(currentText.SubString(4, currentText.Len() - 2)));
+			//		}
+			//		else if (currentText.StartsWith("cos(")) {
+			//			//result = cos(wxAtof(currentText.SubString(4, currentText.Len() - 2)));
+			//			result = CalculatorProcessor::GetInstance().Cos(wxAtof(currentText.SubString(4, currentText.Len() - 2)));
+			//		}
+			//		else if (currentText.StartsWith("tan(")) {
+			//			//result = tan(wxAtof(currentText.SubString(4, currentText.Len() - 2)));
+			//			result = CalculatorProcessor::GetInstance().Tan(wxAtof(currentText.SubString(4, currentText.Len() - 2)));
+			//		}
+			//	}
+			//	else {
+			//		// binary operators
+			//		switch (Operator) {
+			//		case 1:  // Add
+			//			//result = Operand1 + Operand2;
+			//			result = CalculatorProcessor::GetInstance().Add(Operand1, Operand2);
+			//			break;
+			//		case -1: // Subtract
+			//			//result = Operand1 - Operand2;
+			//			result = CalculatorProcessor::GetInstance().Subtract(Operand1, Operand2);
+			//			break;
+			//		case 2:  // Multiply
+			//			//result = Operand1 * Operand2;
+			//			result = CalculatorProcessor::GetInstance().Multiply(Operand1, Operand2);
+			//			break;
+			//		case 3:  // Divide
+			//			if (Operand2 != 0) {
+			//				//result = Operand1 / Operand2;
+			//				result = CalculatorProcessor::GetInstance().Divide(Operand1, Operand2);
+			//			}
+			//			else {
+			//				textBox->SetValue("Error");
+			//				return;
+			//			}
+			//			break;
+			//		case 4:  // Mod
+			//			//result = fmod(Operand1, Operand2);
+			//			result = CalculatorProcessor::GetInstance().Modulus(Operand1, Operand2);
+			//			break;
+			//		default:
+			//			break;
+			//		}
+//
+			//		textBox->SetValue(wxString::Format("%.2f", result));
+			//		Operand1 = result;
+			//		Operand2 = 0.0;
+			//		Operator = 0;
+			//		operatorClicked = false;
+			//	}
+			//	break;
 
-			if (buttonId == ID_EQUAL) {
-				Operand2 = wxAtof(currentText);
-				double result = 0.0;
-
-				// (sin, cos, tan)
-				if (operatorClicked && (Operator == 0)) {
-					if (currentText.StartsWith("sin(")) {
-						result = sin(wxAtof(currentText.SubString(4, currentText.Len() - 2)));
-					}
-					else if (currentText.StartsWith("cos(")) {
-						result = cos(wxAtof(currentText.SubString(4, currentText.Len() - 2)));
-					}
-					else if (currentText.StartsWith("tan(")) {
-						result = tan(wxAtof(currentText.SubString(4, currentText.Len() - 2)));
-					}
-				}
-				else {
-					// binary operators
-					switch (Operator) {
-					case 1:  // Add
-						result = Operand1 + Operand2;
-						break;
-					case -1: // Subtract
-						result = Operand1 - Operand2;
-						break;
-					case 2:  // Multiply
-						result = Operand1 * Operand2;
-						break;
-					case 3:  // Divide
-						if (Operand2 != 0) {
-							result = Operand1 / Operand2;
-						}
-						else {
-							textBox->SetValue("Error");
-							return;
-						}
-						break;
-					case 4:  // Mod
-						result = fmod(Operand1, Operand2);
-						break;
-					default:
-						break;
-					}
-
-					textBox->SetValue(wxString::Format("%.2f", result));
-					Operand1 = result;
-					Operand2 = 0.0;
-					Operator = 0;
-					//operatorClicked = false;
-				}
-				break;
-			}
+				
+			//}
 		}
 	}
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//std::string expression = currentText.ToStdString();
+
+
+//double result = CalculatorProcessor::GetInstance().Calculate(expression);
+
+
+//textBox->SetValue(wxString::Format("%.2f", result));
+
+
+
 
 //Operand1 = wxAtoi(currentText);
 			//Operators = 1;  

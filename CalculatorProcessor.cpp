@@ -67,16 +67,34 @@ std::string CalculatorProcessor::PreprocessExpression(const std::string& expr)
 std::vector<std::string> CalculatorProcessor::Tokenize(const std::string& expr)
 {
     std::vector<std::string> tokens;
-    std::stringstream ss(expr);
-    std::string token;
+    std::string currentToken;
 
-    while (ss >> token) {
-        tokens.push_back(token);
+    for (char c : expr) {
+        if (std::isdigit(c) || c == '.') {
+            currentToken += c; 
+        }
+        else if (std::isspace(c)) {
+            if (!currentToken.empty()) {
+                tokens.push_back(currentToken);  
+                currentToken.clear();            
+            }
+        }
+        else {
+            if (!currentToken.empty()) {
+                tokens.push_back(currentToken);  
+                currentToken.clear();
+            }
+            tokens.push_back(std::string(1, c));  
+        }
+    }
+    if (!currentToken.empty()) {
+        tokens.push_back(currentToken); 
     }
 
     return tokens;
-
 }
+
+
 
 std::vector<std::string> CalculatorProcessor::ConvertToRPN(const std::vector<std::string>& tokens)
 {
@@ -94,13 +112,16 @@ std::vector<std::string> CalculatorProcessor::ConvertToRPN(const std::vector<std
 
     };
     for (const std::string& token : tokens) {
+        //number
         if (isdigit(token[0])) {
             output.push_back(token);
         }
+        //function
         else if (IsFunction(token)) {
             operators.push(token);
         }
         else {
+            //operator
             while (!operators.empty() && precedence[operators.top()] >= precedence[token]) {
                 output.push_back(operators.top());
                 operators.pop();
@@ -108,6 +129,7 @@ std::vector<std::string> CalculatorProcessor::ConvertToRPN(const std::vector<std
             operators.push(token);
         }
     }
+    //left over
     while (!operators.empty()) {
         output.push_back(operators.top());
         operators.pop();
@@ -153,6 +175,42 @@ double CalculatorProcessor::EvaluateRPN(const std::vector<std::string>& rpn)
 
     return stack.top();
 }
+
+
+//negative and divide do not work 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
