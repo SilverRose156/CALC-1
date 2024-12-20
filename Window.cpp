@@ -136,8 +136,8 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 			//textBox->AppendText("+");
 			//Operand1 = wxAtof(currentText);
 
-			Operand1 = wxAtof(currentText);
-			Operator = 1;  // Plus operator
+			//Operand1 = wxAtof(currentText);
+			//Operator = 1;  // Plus operator
 			textBox->AppendText("+");
 			break;
 
@@ -167,7 +167,7 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 			//break;
 			//Operand1 = wxAtof(currentText);
 			//Operator = 3;  // Plus operator
-			textBox->AppendText("%");
+			textBox->AppendText("/");
 			break;
 		case ID_MODULO:
 			//textBox->AppendText("%");
@@ -213,7 +213,7 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 			//negative is at the front of the equation
 		case ID_NEGATIVE:
 
-			textBox->SetValue("-" + currentText);
+			textBox->SetValue("–" + currentText);
 
 			break;
 
@@ -239,7 +239,7 @@ void Window::OnButtonClicked(wxCommandEvent& event)
 
 		case ID_EQUAL:
 			std::string expression = currentText.ToStdString();
-			double result = CalculatorProcessor::GetInstance().Calculate(expression);
+			double result = CalculatorProcessor::GetInstance().Calculate(currentText);
 			textBox->SetValue(wxString::Format("%.2f", result));
 			Operand1 = result; 
 			Operand2 = 0.0;

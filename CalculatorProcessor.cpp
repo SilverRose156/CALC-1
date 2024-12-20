@@ -1,4 +1,5 @@
 #include "CalculatorProcessor.h"
+
 //you need the instance
 CalculatorProcessor& CalculatorProcessor::GetInstance() {
     static CalculatorProcessor instance;
@@ -19,7 +20,10 @@ double CalculatorProcessor::Multiply(double a, double b)
 }
 double CalculatorProcessor::Divide(double a, double b)
 {
-    return (b != 0) ? a / b : 0;
+    if (b == 0) {
+        throw std::invalid_argument("Cant divide by 0");
+    }
+    return a / b;
 }
 double CalculatorProcessor::Modulus(double a, double b)
 {
@@ -44,47 +48,72 @@ double CalculatorProcessor::Tan(double value)
 //
 
 //this is to calculate 
-double CalculatorProcessor::Calculate(const std::string& expression)
+double CalculatorProcessor::Calculate(const wxString& expression)
 {
-    std::string processedExpr = PreprocessExpression(expression);
-    std::vector<std::string> tokens = Tokenize(processedExpr);
-    std::vector<std::string> rpn = ConvertToRPN(tokens);
+    wxString processedExpr = PreprocessExpression(expression);
+    std::vector<wxString> tokens = Tokenize(processedExpr);
+    std::vector<wxString> rpn = ConvertToRPN(tokens);
     return EvaluateRPN(rpn);
 }
 
-std::string CalculatorProcessor::PreprocessExpression(const std::string& expr)
+wxString CalculatorProcessor::PreprocessExpression(const wxString& expr)
 {
-    std::string result;
-    for (char c : expr) {
-        if (!std::isspace(c)) {
+    wxString result;
+    for (wxChar c : expr) {
+        if (c != wxChar(' ') && c != wxChar('(') && c != wxChar(')')) {
             result += c;
-        }
-    }
+        } 
+    } 
     return result;
 
 }
-//should seperae the tokens
-std::vector<std::string> CalculatorProcessor::Tokenize(const std::string& expr)
-{
-    std::vector<std::string> tokens;
-    std::string currentToken;
 
-    for (char c : expr) {
-        if (std::isdigit(c) || c == '.') {
-            currentToken += c; 
-        }
-        else if (std::isspace(c)) {
-            if (!currentToken.empty()) {
-                tokens.push_back(currentToken);  
-                currentToken.clear();            
-            }
-        }
-        else {
-            if (!currentToken.empty()) {
-                tokens.push_back(currentToken);  
+//  –   new negative
+//should seperae the tokens
+std::vector<wxString> CalculatorProcessor::Tokenize(const wxString& expr)
+{
+    const wxString endash = "–";
+    std::vector<wxString> tokens;
+    wxString currentToken = "";
+    bool negative = false; 
+    bool letter = false;
+    for (wxChar c : expr) {
+        if (c == endash[0]) {
+            negative = true;
+            if (letter == true) {
+                letter = false;
+                tokens.push_back(currentToken);
                 currentToken.clear();
             }
-            tokens.push_back(std::string(1, c));  
+        }
+        else if (std::isdigit(c) || c == wxChar('.')) {
+            if (letter == true) {
+                letter = false;
+                tokens.push_back(currentToken);
+                currentToken.clear();
+            }
+            if (negative == true) {
+                negative = false; 
+                // adds the negative to the number
+                currentToken += "-";
+            }
+             
+                currentToken += c;
+            
+        }
+       // else if (c == wxChar(' ')) {
+          //  if (!currentToken.empty()) {
+           //     tokens.push_back(currentToken);  
+           //     currentToken.clear();            
+          //  }
+            //need to check if next is a number 
+       // }
+        else {
+            
+                letter = true;
+                currentToken += c;
+            
+              
         }
     }
     if (!currentToken.empty()) {
@@ -96,11 +125,11 @@ std::vector<std::string> CalculatorProcessor::Tokenize(const std::string& expr)
 
 
 
-std::vector<std::string> CalculatorProcessor::ConvertToRPN(const std::vector<std::string>& tokens)
+std::vector<wxString> CalculatorProcessor::ConvertToRPN(const std::vector<wxString>& tokens)
 {
-    std::stack<std::string> operators;
-    std::vector<std::string> output;
-    std::map<std::string, int> precedence = {
+    std::stack<wxString> operators;
+    std::vector<wxString> output;
+    std::map<wxString, int> precedence = {
         {"sin", 4}, 
         {"cos", 4}, 
         {"tan", 4},
@@ -111,23 +140,25 @@ std::vector<std::string> CalculatorProcessor::ConvertToRPN(const std::vector<std
         {"-", 2},
 
     };
-    for (const std::string& token : tokens) {
-        //number
-        if (isdigit(token[0])) {
-            output.push_back(token);
-        }
+    for (const wxString& token : tokens) {
         //function
-        else if (IsFunction(token)) {
+        if (IsFunction(token)) {
             operators.push(token);
         }
-        else {
+        else if (IsOperator(token)){
             //operator
+
             while (!operators.empty() && precedence[operators.top()] >= precedence[token]) {
                 output.push_back(operators.top());
                 operators.pop();
             }
             operators.push(token);
         }
+        else {
+            //number
+            output.push_back(token);
+        }
+
     }
     //left over
     while (!operators.empty()) {
@@ -139,22 +170,30 @@ std::vector<std::string> CalculatorProcessor::ConvertToRPN(const std::vector<std
 
 }
 //need the functions 
-bool CalculatorProcessor::IsFunction(const std::string& token)
+bool CalculatorProcessor::IsFunction(const wxString& token)
 {
     return token == "sin"
         || token == "cos"
         || token == "tan";
 }
 
-double CalculatorProcessor::EvaluateRPN(const std::vector<std::string>& rpn)
+bool CalculatorProcessor::IsOperator(const wxString& token)
 {
+    return token == "+"
+        || token == "-"
+        || token == "*"
+        || token == "/"
+        || token == "%";
+}
+
+double CalculatorProcessor::EvaluateRPN(const std::vector<wxString>& rpn)
+{
+    double temp;
     std::stack<double> stack;
 
-    for (const std::string& token : rpn) {
-        if (isdigit(token[0])) {
-            stack.push(std::stod(token));
-        }
-        else if (IsFunction(token)) {
+    for (const wxString& token : rpn) {
+        
+        if (IsFunction(token)) {
             double value = stack.top();
             stack.pop();
             //function
@@ -162,14 +201,20 @@ double CalculatorProcessor::EvaluateRPN(const std::vector<std::string>& rpn)
             if (token == "cos") stack.push(Cos(value));
             if (token == "tan") stack.push(Tan(value));
         }
-        else {  //operator
+        else if (IsOperator(token)){  //operator
             double b = stack.top(); stack.pop();
-            double a = stack.top(); stack.pop();
+            double a = stack.top(); stack.pop();//this line is issue
             if (token == "+") stack.push(Add(a, b));
             if (token == "-") stack.push(Subtract(a, b));
             if (token == "*") stack.push(Multiply(a, b));
             if (token == "/") stack.push(Divide(a, b));
             if (token == "%") stack.push(Modulus(a, b));
+        }
+        else  {
+            // if not a token will return error
+            //todouble returns non zero value if there is an error
+            token.ToDouble(&temp);
+            stack.push(temp);
         }
     }
 
@@ -177,7 +222,7 @@ double CalculatorProcessor::EvaluateRPN(const std::vector<std::string>& rpn)
 }
 
 
-//negative and divide do not work 
+//negative  do not work 
 
 
 

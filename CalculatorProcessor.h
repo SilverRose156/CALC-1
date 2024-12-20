@@ -1,4 +1,5 @@
 #pragma once
+#include "wx/wx.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -26,7 +27,7 @@ public:
     CalculatorProcessor(const CalculatorProcessor&) = delete;
     CalculatorProcessor& operator=(const CalculatorProcessor&) = delete;
 
-    double Calculate(const std::string& expression);
+    double Calculate(const wxString& expression);
 
 
     struct Symbol {
@@ -47,12 +48,13 @@ private:
     
    
 
-    std::string PreprocessExpression(const std::string& expr);
-    std::vector<std::string> Tokenize(const std::string& expr);
-    int GetOperatorPrecedence(const std::string& op);
-    std::vector<std::string> ConvertToRPN(const std::vector<std::string>& tokens);
-    bool IsFunction(const std::string& token);
-    double EvaluateRPN(const std::vector<std::string>& rpn);
+    wxString PreprocessExpression(const wxString& expr);
+    std::vector<wxString> Tokenize(const wxString& expr);
+    int GetOperatorPrecedence(const wxString& op);
+    std::vector<wxString> ConvertToRPN(const std::vector<wxString>& tokens);
+    bool IsFunction(const wxString& token);
+    bool IsOperator(const wxString& token);
+    double EvaluateRPN(const std::vector<wxString>& rpn);
 
 };
 
